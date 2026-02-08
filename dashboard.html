@@ -267,38 +267,42 @@
                 <button id="deploy-btn" onclick="handleDeploy()"
                     style="padding: 10px 20px; background: var(--success-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">🚀
                     Deploy Token</button>
+                <button id="batch-deploy-btn" onclick="handleBatchDeploy()"
+                    style="padding: 10px 20px; background: linear-gradient(135deg, #8a2be2, #4b0082); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">💎
+                    Batch Deploy 5 (Agent Design)</button>
             </div>
+        </div>
 
-            <div style="margin-top: 20px;">
-                <label style="display: block; font-size: 12px; margin-bottom: 5px; color: var(--text-secondary);">Custom
-                    Farcaster Post</label>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <textarea id="custom-message" placeholder="What should the agent say on Farcaster?"
-                        style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px; resize: none; height: 60px;"></textarea>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <input type="text" id="image-url" placeholder="Image URL (optional)"
-                            style="flex: 1; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px;">
-                        <button onclick="sendCommand('post')"
-                            style="padding: 10px 20px; background: var(--accent-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">📢
-                            Manual Cast</button>
-                    </div>
+        <div style="margin-top: 20px;">
+            <label style="display: block; font-size: 12px; margin-bottom: 5px; color: var(--text-secondary);">Custom
+                Farcaster Post</label>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <textarea id="custom-message" placeholder="What should the agent say on Farcaster?"
+                    style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px; resize: none; height: 60px;"></textarea>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" id="image-url" placeholder="Image URL (optional)"
+                        style="flex: 1; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px;">
+                    <button onclick="sendCommand('post')"
+                        style="padding: 10px 20px; background: var(--accent-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">📢
+                        Manual Cast</button>
                 </div>
             </div>
-
-            <p id="command-status" style="margin: 10px 0 0; font-size: 12px; color: #3fb950; display: none;">✅ Command
-                Sent!</p>
         </div>
 
-        <div class="token-list">
-            <div class="list-header">Deployment History</div>
-            <div id="deployment-history">
-                <div id="empty-state">No deployments found. Starting cycle...</div>
-            </div>
-        </div>
+        <p id="command-status" style="margin: 10px 0 0; font-size: 12px; color: #3fb950; display: none;">✅ Command
+            Sent!</p>
+    </div>
 
-        <div class="footer">
-            Powered by Agent0 SDK & ERC-8004 Standard • Base Sepolia Network
+    <div class="token-list">
+        <div class="list-header">Deployment History</div>
+        <div id="deployment-history">
+            <div id="empty-state">No deployments found. Starting cycle...</div>
         </div>
+    </div>
+
+    <div class="footer">
+        Powered by Agent0 SDK & ERC-8004 Standard • Base Sepolia Network
+    </div>
     </div>
 
     <script>
@@ -423,6 +427,66 @@
             } finally {
                 btn.disabled = false;
                 btn.textContent = "🚀 Deploy Token";
+            }
+        }
+
+        async function handleBatchDeploy() {
+            if (!userAddress || !signer) {
+                alert("Please connect your wallet first!");
+                return;
+            }
+
+            const status = document.getElementById('command-status');
+            const btn = document.getElementById('batch-deploy-btn');
+
+            try {
+                // Check Balance (0.1$ is approx 0.00004 ETH)
+                const balance = await provider.getBalance(userAddress);
+                const minBalance = ethers.utils.parseEther("0.00004");
+
+                if (balance.lt(minBalance)) {
+                    alert("Insufficient Balance! You need at least 0.1$ (approx 0.00004 ETH) for gas.");
+                    return;
+                }
+
+                if (!confirm("Agent will design and deploy 5 tokens from your wallet. Continue?")) return;
+
+                btn.disabled = true;
+                btn.textContent = "⌛ Batch Processing...";
+                status.style.display = 'block';
+
+                for (let i = 1; i <= 5; i++) {
+                    // Agent Designs the token
+                    const prefixes = ["Open", "Base", "Claw", "Auto", "Chain", "Mesh", "Cyber", "Meta", "Hyper", "Ultra", "Mega", "Nova", "Apex", "Quantum", "Nexus"];
+                    const suffixes = ["Token", "Coin", "Cash", "Finance", "Pay", "Network", "Protocol", "Chain", "Swap", "Vault", "DAO", "Labs"];
+                    const name = prefixes[Math.floor(Math.random() * prefixes.length)] + suffixes[Math.floor(Math.random() * suffixes.length)];
+                    const symbol = (name[0] + name[name.length - 2] + name[name.length - 1]).toUpperCase();
+
+                    status.textContent = `🚀 Processing ${i}/5: Deploying ${name}...`;
+
+                    const factory = new ethers.ContractFactory(ERC20_ABI, ERC20_BYTECODE, signer);
+                    const initialSupply = ethers.utils.parseUnits("1000000", 18);
+
+                    const contract = await factory.deploy(name, symbol, initialSupply, {
+                        gasLimit: 1200000
+                    });
+
+                    status.textContent = `⏳ Waiting for #${i} Confirmation...`;
+                    await contract.deployed();
+                    console.log(`Token ${i} deployed at:`, contract.address);
+                }
+
+                status.textContent = "✅ All 5 Agent-Designed Tokens Deployed Successfully!";
+                status.style.background = "rgba(35, 134, 54, 0.2)";
+
+            } catch (error) {
+                console.error("Batch Failed", error);
+                status.textContent = "❌ Batch Error: " + (error.message || "Unknown Error");
+                status.style.background = "rgba(255, 0, 0, 0.1)";
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "💎 Batch Deploy 5 (Agent Design)";
+                updateDashboard();
             }
         }
 

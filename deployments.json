@@ -926,5 +926,15 @@
     "transaction_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
     "initial_supply": 500000,
     "explorer_url": "https://basescan.org/tx/0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  {
+    "deployment_number": 2,
+    "timestamp": "2026-02-08T18:52:43.676513",
+    "token_name": "MetaChain",
+    "token_symbol": "MIN",
+    "contract_address": "0xcccccccccccccccccccccccccccccccccccccccc",
+    "transaction_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "initial_supply": 500000,
+    "explorer_url": "https://basescan.org/tx/0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
   }
 ]
