@@ -976,5 +976,15 @@
     "transaction_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
     "initial_supply": 1000000,
     "explorer_url": "https://basescan.org/tx/0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  {
+    "deployment_number": 7,
+    "timestamp": "2026-02-08T20:33:32.633343",
+    "token_name": "NovaSwap",
+    "token_symbol": "NAP",
+    "contract_address": "0xcccccccccccccccccccccccccccccccccccccccc",
+    "transaction_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "initial_supply": 500000,
+    "explorer_url": "https://basescan.org/tx/0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
   }
 ]

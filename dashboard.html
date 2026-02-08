@@ -257,8 +257,59 @@
             text-transform: uppercase;
         }
 
-        .token-item:last-child {
-            border-bottom: none;
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 15px;
+                width: 95%;
+                margin: 10px auto;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                /* Stack cards vertically */
+            }
+
+            /* Adjust input/button grids */
+            div[style*="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                /* Stack buttons */
+            }
+
+            /* Premium Section Stack */
+            div[style*="display: flex; justify-content: space-between; align-items: center; gap: 20px;"] {
+                flex-direction: column;
+                align-items: stretch !important;
+                text-align: center;
+            }
+
+            button {
+                padding: 15px !important;
+                font-size: 14px !important;
+            }
+
+            h2 {
+                font-size: 20px !important;
+            }
+
+            h4 {
+                font-size: 16px !important;
+            }
         }
 
         .token-name {
