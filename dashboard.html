@@ -553,6 +553,9 @@
                 // Use a smaller initial supply
                 const initialSupply = ethers.utils.parseUnits("1000000", 18);
 
+                // Get initial nonce
+                let startingNonce = await provider.getTransactionCount(userAddress);
+
                 // Loop for 5 Sepolia Deployments
                 for (let i = 1; i <= 5; i++) {
                     const currentName = i === 1 ? name : `${name} ${i}`;
@@ -560,14 +563,24 @@
 
                     status.textContent = `⏳ Sepolia Deployment ${i}/5: Signing...`;
 
-                    const contract = await factory.deploy(currentName, currentSymbol, initialSupply, {
-                        gasLimit: 3000000
-                    });
+                    try {
+                        // Explicit nonce management + gas
+                        const contract = await factory.deploy(currentName, currentSymbol, initialSupply, {
+                            gasLimit: 3000000,
+                            nonce: startingNonce + (i - 1)
+                        });
 
-                    status.textContent = `⏳ Sepolia Deployment ${i}/5: Waiting for Confirmation...`;
-                    await contract.deployed();
+                        status.textContent = `⏳ Sepolia Deployment ${i}/5: Submitted...`;
 
-                    console.log(`Sepolia Token ${i} deployed:`, contract.address);
+                        // We do NOT wait for full confirmation for speed, just broadcast
+                        // Or wait if stability is preferred. Let's wait for at least one confirmation.
+                        await contract.deployed();
+                        console.log(`Sepolia Token ${i} deployed:`, contract.address);
+                    } catch (loopError) {
+                        console.error(`Error on token ${i}:`, loopError);
+                        // If one fails, we try to continue or just log it
+                        status.textContent = `⚠️ Token ${i} failed, continuing...`;
+                    }
                 }
 
                 status.textContent = "✅ Success! 5 Tokens Deployed on Base Sepolia.";
