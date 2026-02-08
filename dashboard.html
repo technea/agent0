@@ -7,146 +7,254 @@
     <title>OpenClaw Agent - Live Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"
         type="application/javascript"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0d1117;
-            --card-bg: rgba(22, 27, 34, 0.8);
+            --card-bg: rgba(22, 27, 34, 0.7);
             --accent-color: #58a6ff;
+            --accent-gradient: linear-gradient(135deg, #58a6ff 0%, #bc8cff 100%);
             --success-color: #238636;
+            --error-color: #f85149;
             --text-primary: #c9d1d9;
             --text-secondary: #8b949e;
-            --border-color: #30363d;
+            --border-color: rgba(48, 54, 61, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
         }
 
         body {
             background-color: var(--bg-color);
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(88, 166, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(188, 140, 255, 0.05) 0%, transparent 40%);
             color: var(--text-primary);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Outfit', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         .container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            /* Better vertical breathing room */
         }
 
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
             background: var(--card-bg);
-            padding: 20px 30px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
+            padding: 25px 35px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        h1 {
+        .header-title-group h1 {
             margin: 0;
-            font-size: 24px;
-            background: linear-gradient(90deg, #58a6ff, #bc8cff);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: var(--accent-gradient);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .status-badge {
-            padding: 6px 12px;
-            border-radius: 20px;
-            background: rgba(35, 134, 54, 0.2);
-            color: #3fb950;
-            font-size: 14px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background-color: #3fb950;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.7);
-            }
-
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 10px rgba(63, 185, 80, 0);
-            }
-
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(63, 185, 80, 0);
-            }
-        }
-
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .stat-card {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-gradient);
+            opacity: 0.5;
         }
 
         .stat-value {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--accent-color);
-            margin-bottom: 5px;
+            font-size: 36px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+            display: block;
         }
 
         .stat-label {
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .command-center {
+            background: rgba(88, 166, 255, 0.03);
+            border: 1px solid var(--accent-color);
+            border-radius: 24px;
+            padding: 35px;
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input {
+            background: rgba(13, 17, 23, 0.8);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+        }
+
+        button {
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        button[onclick*="connectWallet"] {
+            background: transparent;
+            border: 1.5px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+        }
+
+        button[onclick*="connectWallet"]:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        #deploy-btn {
+            background: var(--success-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(35, 134, 54, 0.3);
+        }
+
+        #batch-deploy-btn {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(188, 140, 255, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        button:active {
+            transform: translateY(0);
         }
 
         .token-list {
             background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .list-header {
-            padding: 15px 25px;
-            background: rgba(48, 54, 61, 0.3);
+            padding: 20px 35px;
+            background: rgba(48, 54, 61, 0.4);
             border-bottom: 1px solid var(--border-color);
-            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
             color: var(--text-secondary);
         }
 
         .token-item {
-            padding: 20px 25px;
+            padding: 25px 35px;
             border-bottom: 1px solid var(--border-color);
             display: grid;
-            grid-template-columns: 1fr 1fr 1.5fr 1fr;
+            grid-template-columns: 1.2fr 1fr 1.5fr 1fr;
             align-items: center;
-            transition: background 0.2s;
+            gap: 20px;
         }
 
         .token-item:hover {
-            background: rgba(48, 54, 61, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+        }
+
+        .token-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .reputation-badge {
+            background: var(--accent-gradient);
+            padding: 4px 12px;
+            border-radius: 6px;
+            color: white;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
         }
 
         .token-item:last-child {
@@ -207,102 +315,106 @@
 
 <body>
     <div class="container">
+        <!-- Header -->
         <header>
-            <div>
-                <h1>OpenClaw Dashboard</h1>
-                <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Autonomous Agent0 / ERC-8004
-                    Operator</p>
+            <div class="header-title-group">
+                <h1>OpenClaw Intelligence</h1>
+                <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Autonomous Agent0 • Real-time
+                    On-chain Operator</p>
             </div>
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <button id="connect-wallet" onclick="connectWallet()"
-                    style="padding: 6px 15px; background: transparent; border: 1px solid var(--accent-color); color: var(--accent-color); border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 13px;">Connect
-                    Wallet</button>
-                <div class="status-badge">
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <button id="connect-wallet" onclick="connectWallet()">💳 Connect Wallet</button>
+                <div class="status-badge"
+                    style="background: rgba(35, 134, 54, 0.15); color: #3fb950; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 30px; font-weight: 600; font-size: 13px; border: 1px solid rgba(63, 185, 80, 0.2);">
                     <div class="status-dot"></div>
-                    Agent Live
+                    Agent Active
                 </div>
             </div>
         </header>
 
+        <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-value" id="total-deployments">0</div>
-                <div class="stat-label">Total Tokens</div>
+                <span class="stat-value" id="total-deployments">0</span>
+                <span class="stat-label">Deployments</span>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="reputation-score">0</div>
-                <div class="stat-label">Reputation Score</div>
+                <span class="stat-value" id="reputation-score">0</span>
+                <span class="stat-label">Reputation Score</span>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="user-address"
-                    style="font-size: 14px; overflow: hidden; text-overflow: ellipsis;">No Wallet</div>
-                <div class="stat-label">Your Wallet</div>
+                <span class="stat-value" id="user-address" style="font-size: 16px; font-family: monospace;">No
+                    Wallet</span>
+                <span class="stat-label">Active Connection</span>
             </div>
         </div>
 
         <!-- Command Center -->
-        <div class="token-list" style="margin-bottom: 30px; padding: 25px; background: rgba(88, 166, 255, 0.05);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h3 style="margin: 0; color: var(--accent-color);">🎮 Agent Command Center</h3>
-                <span id="deployment-mode" style="font-size: 12px; color: var(--text-secondary);">Mode: Agent
+        <div class="command-center">
+            <div class="section-header">
+                <h3 class="section-title">🎮 Agent Command Center</h3>
+                <span id="deployment-mode"
+                    style="font-size: 12px; color: var(--text-secondary); background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 20px;">Mode:
                     Autonomous</span>
             </div>
-            <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
-                <div style="flex: 1; min-width: 200px;">
-                    <label
-                        style="display: block; font-size: 12px; margin-bottom: 5px; color: var(--text-secondary);">Custom
-                        Token Name</label>
-                    <input type="text" id="custom-name" placeholder="e.g. SatoshiToken"
-                        style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px;">
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-size: 12px; color: var(--text-secondary); font-weight: 600;">TOKEN NAME</label>
+                    <input type="text" id="custom-name" placeholder="e.g. SatoshiToken">
                 </div>
-                <div style="width: 120px;">
-                    <label
-                        style="display: block; font-size: 12px; margin-bottom: 5px; color: var(--text-secondary);">Symbol</label>
-                    <input type="text" id="custom-symbol" placeholder="SAT"
-                        style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px;">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-size: 12px; color: var(--text-secondary); font-weight: 600;">SYMBOL</label>
+                    <input type="text" id="custom-symbol" placeholder="SAT">
                 </div>
-                <button onclick="agentDesignToken()"
-                    style="padding: 10px; background: rgba(88,166,255,0.1); border: 1px dashed var(--accent-color); color: var(--accent-color); border-radius: 6px; cursor: pointer; font-size: 12px;">🪄
-                    Agent Suggest</button>
-                <button id="deploy-btn" onclick="handleDeploy()"
-                    style="padding: 10px 20px; background: var(--success-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">🚀
-                    Deploy Token</button>
-                <button id="batch-deploy-btn" onclick="handleBatchDeploy()"
-                    style="padding: 10px 20px; background: linear-gradient(135deg, #8a2be2, #4b0082); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">💎
-                    Batch Deploy 5 (Agent Design)</button>
+                <div style="display: flex; gap: 10px; align-items: flex-end;">
+                    <button onclick="agentDesignToken()"
+                        style="background: rgba(88,166,255,0.1); border: 1px dashed var(--accent-color); color: var(--accent-color); flex: 1;">🪄
+                        Suggest</button>
+                    <button id="deploy-btn" onclick="handleDeploy()" style="flex: 2;">🚀 Deploy</button>
+                </div>
+            </div>
+
+            <button id="batch-deploy-btn" onclick="handleBatchDeploy()" style="width: 100%; margin-bottom: 20px;">💎
+                Batch Deploy 5 (Agent AI Designs + Direct Wallet Integration)</button>
+
+            <div style="border-top: 1px solid var(--border-color); padding-top: 20px;">
+                <label
+                    style="display: block; font-size: 12px; margin-bottom: 8px; color: var(--text-secondary); font-weight: 600;">SOCIAL
+                    BROADCAST (FARCASTER)</label>
+                <div style="display: grid; grid-template-columns: 1fr auto; gap: 10px;">
+                    <textarea id="custom-message" placeholder="What should the agent say?"
+                        style="background: rgba(13,17,23,0.8); border: 1px solid var(--border-color); color: white; padding: 12px; border-radius: 12px; resize: none; font-family: inherit; grid-column: 1 / span 2; height: 80px;"></textarea>
+                    <input type="text" id="image-url" placeholder="Image URL (optional)">
+                    <button onclick="sendCommand('post')" style="background: var(--accent-color); color: white;">📢 Cast
+                        Now</button>
+                </div>
+            </div>
+
+            <div id="command-status"
+                style="margin-top: 15px; padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 600; text-align: center; display: none; background: rgba(35, 134, 54, 0.1); color: var(--success-color); border: 1px solid rgba(35, 134, 54, 0.2);">
+                ✅ Command Sent!
             </div>
         </div>
 
-        <div style="margin-top: 20px;">
-            <label style="display: block; font-size: 12px; margin-bottom: 5px; color: var(--text-secondary);">Custom
-                Farcaster Post</label>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-                <textarea id="custom-message" placeholder="What should the agent say on Farcaster?"
-                    style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px; resize: none; height: 60px;"></textarea>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="text" id="image-url" placeholder="Image URL (optional)"
-                        style="flex: 1; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px;">
-                    <button onclick="sendCommand('post')"
-                        style="padding: 10px 20px; background: var(--accent-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">📢
-                        Manual Cast</button>
+        <!-- History -->
+        <div class="token-list">
+            <div class="list-header">🛡️ Verify Deployment History (On-chain)</div>
+            <div id="deployment-history">
+                <div id="empty-state" style="padding: 60px; text-align: center; color: var(--text-secondary);">
+                    <div style="font-size: 40px; margin-bottom: 10px;">🔍</div>
+                    Scanning blockchain for agent signatures...
                 </div>
             </div>
         </div>
 
-        <p id="command-status" style="margin: 10px 0 0; font-size: 12px; color: #3fb950; display: none;">✅ Command
-            Sent!</p>
-    </div>
-
-    <div class="token-list">
-        <div class="list-header">Deployment History</div>
-        <div id="deployment-history">
-            <div id="empty-state">No deployments found. Starting cycle...</div>
+        <!-- Footer -->
+        <div
+            style="text-align: center; padding: 40px 0; color: var(--text-secondary); font-size: 13px; border-top: 1px solid var(--border-color);">
+            Built for <strong>Base Agent Competition</strong> • Powered by <strong>Agent0 SDK</strong> • Real-time
+            On-chain Execution
         </div>
-    </div>
-
-    <div class="footer">
-        Powered by Agent0 SDK & ERC-8004 Standard • Base Sepolia Network
-    </div>
     </div>
 
     <script>
