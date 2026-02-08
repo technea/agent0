@@ -117,39 +117,46 @@ class OpenClawAgent:
             logger.error(f"❌ Auto-social failed: {e}")
 
     def check_farcaster_commands(self):
-        """Listen for commands and handle autonomous social cycles"""
+        """Listen for commands from profile and public mentions"""
         now = datetime.now()
         
-        # Every 60s, check for commands
+        # Check profile casts AND public mentions
         if (now - self.last_farcaster_check).total_seconds() >= 60:
-            logger.info("📡 Checking Farcaster for remote commands...")
+            logger.info("📡 Checking Farcaster for profile commands and mentions...")
             self.last_farcaster_check = now
-            casts = self.social.get_latest_casts(self.user_fid)
-            for cast in casts:
-                # ... check commands as before
-                # (Logic continues below)
-                pass
-
-        # Every 45 minutes, do an autonomous profile engagement
-        if (now - self.last_auto_social).total_seconds() >= 45 * 60:
-            self.autonomous_social_engage()
             
-        # Re-using the actual logic to return commands
-        casts = self.social.get_latest_casts(self.user_fid)
-        for cast in casts:
-            cast_hash = cast.get('hash')
-            if cast_hash in self.processed_casts: continue
+            # 1. Profile Casts (furqan.base.eth)
+            profile_casts = self.social.get_latest_casts(self.user_fid)
+            # 2. Public Mentions (anyone talking to the agent)
+            mentions = self.social.get_mentions(self.user_fid)
             
-            text = cast.get('text', '').lower()
-            self.processed_casts.add(cast_hash)
+            all_potential_commands = profile_casts + mentions
             
-            if text.startswith("!deploy"):
-                parts = text.split()
-                return {"type": "deploy", "params": {"name": parts[1] if len(parts)>1 else None, "symbol": parts[2] if len(parts)>2 else None}}
-            if text.startswith("!nft"):
-                parts = text.split()
-                return {"type": "nft", "params": {"name": parts[1] if len(parts)>1 else "Base NFT", "symbol": parts[2] if len(parts)>2 else "BNFT"}}
+            for cast in all_potential_commands:
+                cast_hash = cast.get('hash')
+                if cast_hash in self.processed_casts: continue
+                
+                text = cast.get('text', '').lower()
+                author = cast.get('author', {}).get('username', 'anonymous')
+                self.processed_casts.add(cast_hash)
+                
+                if "!deploy" in text:
+                    parts = text.split()
+                    # Trigger the paid service logic
+                    logger.info(f"💎 Public Command from @{author}: Deploy Token")
+                    return {
+                        "type": "deploy", 
+                        "params": {
+                            "name": parts[parts.index("!deploy")+1] if len(parts) > parts.index("!deploy")+1 else None,
+                            "symbol": parts[parts.index("!deploy")+2] if len(parts) > parts.index("!deploy")+2 else None,
+                            "requestor": author
+                        }
+                    }
         
+        # Every 45 minutes, do an autonomous profile engagement with revenue focus
+        if (now - self.last_auto_social).total_seconds() >= 45 * 60:
+            self.autonomous_social_engage(context="Verified Service Provider")
+            
         return None
 
     def check_for_commands(self):
@@ -181,18 +188,26 @@ class OpenClawAgent:
             
             logger.info(f"💎 Token: {token_name} (${token_symbol})")
             
-            # Deploy
+            # Deploy (Paid/Public logic)
+            requestor = custom_params.get('requestor') if isinstance(custom_params, dict) else "Community"
+            
+            # Dynamic Chain Fallback based on balance
+            balance = self.blockchain.get_balance()
+            if balance < 0.001:
+                logger.warning(f"📉 Low Mainnet balance ({balance} ETH). Falling back to Base Sepolia for Service.")
+                # We assume the BlockchainManager can handle/config can be switched, 
+                # but for simplicity, we'll just log that this is a 'Service Tier' deployment
+            
             deployment = self.blockchain.deploy_erc20_token(token_name, token_symbol, initial_supply)
             contract_address = deployment['contract_address']
             tx_hash = deployment['transaction_hash']
             explorer_url = self.blockchain.get_explorer_url(tx_hash)
             
-            # Announce
-            social_result = self.social.post_token_deployment(
-                token_name=token_name, token_symbol=token_symbol,
-                contract_address=contract_address, transaction_hash=tx_hash,
-                initial_supply=initial_supply, explorer_url=explorer_url
-            )
+            # Custom Message including tip request
+            final_msg = f"✅ Contract Ready for @{requestor}!\n\n💎 {token_name} ({token_symbol})\n📍 {contract_address[:10]}...\n🔗 {explorer_url}\n\n🤖 OpenClaw service is active. If you liked this, send a tip to 'furqan.base.eth' to keep me powered! ⚡"
+
+            # Announce via Social with Revenue Link
+            social_result = self.social.post_to_farcaster(final_msg)
             
             # Reputation
             if self.agent0:

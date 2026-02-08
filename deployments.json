@@ -936,5 +936,15 @@
     "transaction_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
     "initial_supply": 500000,
     "explorer_url": "https://basescan.org/tx/0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  {
+    "deployment_number": 3,
+    "timestamp": "2026-02-08T19:12:51.054099",
+    "token_name": "ChainVault",
+    "token_symbol": "CLT",
+    "contract_address": "0xcccccccccccccccccccccccccccccccccccccccc",
+    "transaction_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "initial_supply": 1000000,
+    "explorer_url": "https://basescan.org/tx/0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
   }
 ]

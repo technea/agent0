@@ -112,7 +112,7 @@ class SocialMediaManager:
             logger.error(f"❌ Error posting to Farcaster: {str(e)}")
             return {'status': 'error', 'platform': 'farcaster', 'error': str(e)}
     
-    def get_latest_casts(self, fid: int, limit: int = 5) -> List[Dict]:
+    def get_latest_casts(self, fid: int, limit: int = 5) -> list:
         """
         Fetch latest casts for a specific FID to look for commands
         """
@@ -132,6 +132,31 @@ class SocialMediaManager:
             return []
         except Exception as e:
             logger.error(f"❌ Error fetching casts: {e}")
+            return []
+
+    def get_mentions(self, fid: int, limit: int = 10) -> list:
+        """
+        Fetch mentions of the agent's account to allow public deployment commands
+        """
+        try:
+            if not self.farcaster_api_key:
+                return []
+            
+            # Neynar mentions endpoint
+            url = f"https://api.neynar.com/v2/farcaster/notifications?fid={fid}&limit={limit}&type=mentions"
+            headers = {
+                "accept": "application/json",
+                "api_key": self.farcaster_api_key
+            }
+            
+            response = requests.get(url, headers=headers)
+            if response.status_code == 200:
+                # notifications -> notification -> cast
+                notifs = response.json().get('notifications', [])
+                return [n['cast'] for n in notifs if 'cast' in n]
+            return []
+        except Exception as e:
+            logger.error(f"❌ Error fetching mentions: {e}")
             return []
 
     def post_to_x(self, message: str) -> Dict[str, any]:
@@ -289,7 +314,10 @@ class SocialMediaManager:
 💰 Supply: {initial_supply:,}
 🔗 {explorer_url}
 
-#Base #Crypto #DeFi #OpenClaw"""
+🛡️ Verified & Secured by OpenClaw Service
+💎 Support the Agent: furqan.base.eth
+
+#Base #Crypto #OpenClaw #RevenueGeneration"""
         
         return message
     
