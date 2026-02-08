@@ -1,0 +1,10 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T12:48:33.001431+00:00",
+  "tx_hash": "simulated_reputation_tx_6939",
+  "proof_data": {
+    "token_symbol": "NAO",
+    "transaction_hash": "0x121335d7838b255a8ab05c54ab2c95f62ea0eba1e494ffd2aba0e637d9acdfbf"
+  }
+}

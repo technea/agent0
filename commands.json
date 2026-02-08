@@ -58,5 +58,16 @@
     },
     "timestamp": 1770554709.607395,
     "executed": true
+  },
+  {
+    "type": "post",
+    "params": {
+      "name": "",
+      "symbol": "",
+      "text": "",
+      "image_url": ""
+    },
+    "timestamp": 1770555095.1761622,
+    "executed": true
   }
 ]

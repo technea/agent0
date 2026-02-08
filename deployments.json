@@ -826,5 +826,61 @@
     "transaction_hash": "0x13fab69de89b739f49c50c677430f8ea330927d3867aa67063f9b519fd53f119",
     "initial_supply": 1000000,
     "explorer_url": "https://sepolia.basescan.org/tx/0x13fab69de89b739f49c50c677430f8ea330927d3867aa67063f9b519fd53f119"
+  },
+  {
+    "deployment_number": 1,
+    "timestamp": "2026-02-08T17:46:50.610661",
+    "token_name": "OpenSwap",
+    "token_symbol": "OAP",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "0xa3339bc864981a2e5123f7f923dcce9ac2602ba929bce19884ce921992cedcff",
+    "initial_supply": 1000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/0xa3339bc864981a2e5123f7f923dcce9ac2602ba929bce19884ce921992cedcff"
+  },
+  {
+    "deployment_number": 1,
+    "timestamp": "2026-02-08T17:48:33.002523",
+    "token_name": "NexusDAO",
+    "token_symbol": "NAO",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "0x121335d7838b255a8ab05c54ab2c95f62ea0eba1e494ffd2aba0e637d9acdfbf",
+    "initial_supply": 500000,
+    "explorer_url": "https://sepolia.basescan.org/tx/0x121335d7838b255a8ab05c54ab2c95f62ea0eba1e494ffd2aba0e637d9acdfbf"
+  },
+  {
+    "deployment_number": 1,
+    "timestamp": "2026-02-08T17:53:56.711885",
+    "token_name": "QuantumPay",
+    "token_symbol": "QAY",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "0x09e164aefbd5f2a746ef43bac38b8a90794558ae7ed0e93b0ca52d5630952645",
+    "initial_supply": 500000,
+    "explorer_url": "https://sepolia.basescan.org/tx/0x09e164aefbd5f2a746ef43bac38b8a90794558ae7ed0e93b0ca52d5630952645"
+  },
+  {
+    "contract_address": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "transaction_hash": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "name": "ai_magic_collection",
+    "symbol": "aim",
+    "type": "ERC721",
+    "timestamp": "2026-02-08T17:57:20.264099"
+  },
+  {
+    "contract_address": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "transaction_hash": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "name": "ai_magic_collection",
+    "symbol": "aim",
+    "type": "ERC721",
+    "timestamp": "2026-02-08T18:07:45.010557"
+  },
+  {
+    "deployment_number": 1,
+    "timestamp": "2026-02-08T18:08:01.004056",
+    "token_name": "ApexChain",
+    "token_symbol": "AIN",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "0xe941e7dd2a842e7359dcb68c5d6cb542d2689505173053b980d6af9e61dfb14b",
+    "initial_supply": 1000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/0xe941e7dd2a842e7359dcb68c5d6cb542d2689505173053b980d6af9e61dfb14b"
   }
 ]

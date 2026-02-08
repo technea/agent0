@@ -83,38 +83,72 @@ class OpenClawAgent:
         self.user_fid = 1449860 # furqan.base.eth
         self.processed_casts = set()
         self.last_farcaster_check = datetime.now() - timedelta(minutes=5)
+        self.last_auto_social = datetime.now() - timedelta(minutes=60)
+
+    def autonomous_social_engage(self):
+        """Fetch latest profile activity and post a relevant 'Base' hype update with AI image"""
+        try:
+            logger.info("🕵️ Visiting profile to find inspiration...")
+            casts = self.social.get_latest_casts(self.user_fid, limit=3)
+            
+            # Simple context extraction from latest cast
+            context = "Base Ecosystem"
+            if casts:
+                context = casts[0].get('text', 'Base Ecosystem')[:50]
+            
+            # Formulate hype message
+            hype_messages = [
+                f"Still thinking about the growth on #Base! 🔵 {context} is just the beginning. 🚀",
+                f"The energy on Base right now is unmatched! 💎 Working on some new autonomous deployments. #OpenClaw",
+                f"GM to the Base community! 🦾 Building in public and keeping the chain busy. #BasePosting",
+                f"Autonomous agents are the future of Base. 🤖 Verified and on-chain. {context}"
+            ]
+            msg = random.choice(hype_messages)
+            
+            # Generate relevant AI image
+            image_prompt = f"Abstract digital art representing {context} and Base blockchain, futuristic blue neon style, high resolution"
+            image_url = self.social.generate_ai_image(image_prompt)
+            
+            logger.info(f"📢 Posting autonomous interaction: {msg}")
+            self.social.post_to_farcaster(msg, image_url=image_url)
+            self.last_auto_social = datetime.now()
+            
+        except Exception as e:
+            logger.error(f"❌ Auto-social failed: {e}")
 
     def check_farcaster_commands(self):
-        """Listen for commands posted on Farcaster"""
-        if (datetime.now() - self.last_farcaster_check).total_seconds() < 60:
-            return None
-            
-        logger.info("📡 Checking Farcaster for remote commands...")
-        self.last_farcaster_check = datetime.now()
+        """Listen for commands and handle autonomous social cycles"""
+        now = datetime.now()
         
+        # Every 60s, check for commands
+        if (now - self.last_farcaster_check).total_seconds() >= 60:
+            logger.info("📡 Checking Farcaster for remote commands...")
+            self.last_farcaster_check = now
+            casts = self.social.get_latest_casts(self.user_fid)
+            for cast in casts:
+                # ... check commands as before
+                # (Logic continues below)
+                pass
+
+        # Every 45 minutes, do an autonomous profile engagement
+        if (now - self.last_auto_social).total_seconds() >= 45 * 60:
+            self.autonomous_social_engage()
+            
+        # Re-using the actual logic to return commands
         casts = self.social.get_latest_casts(self.user_fid)
         for cast in casts:
             cast_hash = cast.get('hash')
-            if cast_hash in self.processed_casts:
-                continue
+            if cast_hash in self.processed_casts: continue
             
             text = cast.get('text', '').lower()
             self.processed_casts.add(cast_hash)
             
-            # Simple Command Logic: "!deploy Name Symbol"
             if text.startswith("!deploy"):
                 parts = text.split()
-                name = parts[1] if len(parts) > 1 else None
-                symbol = parts[2] if len(parts) > 2 else None
-                logger.info(f"📢 Farcaster Command Detected: Deploy {name}")
-                return {"type": "deploy", "params": {"name": name, "symbol": symbol}, "source": "farcaster"}
-            
+                return {"type": "deploy", "params": {"name": parts[1] if len(parts)>1 else None, "symbol": parts[2] if len(parts)>2 else None}}
             if text.startswith("!nft"):
                 parts = text.split()
-                name = parts[1] if len(parts) > 1 else "Base NFT"
-                symbol = parts[2] if len(parts) > 2 else "BNFT"
-                logger.info(f"📢 Farcaster NFT Command Detected")
-                return {"type": "nft", "params": {"name": name, "symbol": symbol}, "source": "farcaster"}
+                return {"type": "nft", "params": {"name": parts[1] if len(parts)>1 else "Base NFT", "symbol": parts[2] if len(parts)>2 else "BNFT"}}
         
         return None
 

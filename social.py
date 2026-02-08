@@ -105,6 +105,7 @@ class SocialMediaManager:
                 return {'status': 'success', 'platform': 'farcaster', 'response': data}
             else:
                 logger.error(f"❌ Failed to post to Farcaster: {response.status_code}")
+                logger.error(f"Response: {response.text}")
                 return {'status': 'error', 'platform': 'farcaster', 'error': response.text}
                 
         except Exception as e:
