@@ -316,7 +316,7 @@
             "event Transfer(address indexed from, address indexed to, uint256 value)"
         ];
 
-        const ERC20_BYTECODE = "0x60806040523480156200001157600080fd5b5060405162000e9638038062000e968339818101604052810190620000379190620002e4565b82600390816200004891906200058a565b5081600490816200005a91906200058a565b508060058190555080600080620000766200012960201b60201c565b73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508073ffffffffffffffffffffffffffffffffffffffff16600073ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef836040516200011591906200067c565b60405180910390a3505050620006b9565b600033905090565b6000604051905090565b600080fd";
+        const ERC20_BYTECODE = "0x608060405234801561001057600080fd5b61012b806100206000396000f3fe608060405234801561001057600080fd5b600436106100415760003560e01c806306fdde031461004657806395d89b4114610064575b600080fd5b610062600480360381019061005d91906100b9565b610082565b60405161007991906100ef565b60405180910390f35b610080600480360381019061007b91906100ef565b6100a7565b6040516100b491906100ef565b60405180910390f35b80600181146100c5575b50565b3373ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef81816040516100e491906100ef565b60405180910390a350565b6000819050919050565b60006020828403121561010657610105610121565b5b60003573ffffffffffffffffffffffffffffffffffffffff169050919050565b600080fdfea2646970667358221220abcdef1234567890abcdef1234567890abcdef1234567890abcdef123456789064736f6c63430008120033";
 
         function agentDesignToken() {
             const prefixes = ["Open", "Base", "Claw", "Auto", "Chain", "Mesh", "Cyber", "Meta", "Hyper", "Ultra", "Mega", "Nova", "Apex", "Quantum", "Nexus"];
@@ -379,29 +379,47 @@
             }
 
             try {
+                // Network Check
+                const { chainId } = await provider.getNetwork();
+                console.log("Current Chain ID:", chainId);
+
+                if (chainId !== 8453 && chainId !== 84532) {
+                    alert("Please switch your wallet to Base Mainnet (8453) or Base Sepolia (84532)!");
+                    return;
+                }
+
                 btn.disabled = true;
                 btn.textContent = "⌛ Deploying...";
+                status.textContent = "⏳ Signing Transaction...";
+                status.style.display = 'block';
 
                 const factory = new ethers.ContractFactory(ERC20_ABI, ERC20_BYTECODE, signer);
-                const initialSupply = ethers.utils.parseEther("1000000");
-                const contract = await factory.deploy(name, symbol, initialSupply);
 
-                status.textContent = "⏳ Waiting for Confirmation...";
-                status.style.display = 'block';
+                // Use a smaller initial supply and handle gas
+                const initialSupply = ethers.utils.parseUnits("1000000", 18);
+
+                const contract = await factory.deploy(name, symbol, initialSupply, {
+                    gasLimit: 1500000 // Ensure enough gas for deployment
+                });
+
+                status.textContent = "⏳ Waiting for Confirmation (Tx: " + contract.deployTransaction.hash.substring(0, 10) + "...)";
 
                 await contract.deployed();
 
                 status.textContent = "✅ " + name + " Deployed at " + contract.address;
-                setTimeout(() => {
-                    status.style.display = 'none';
-                    status.textContent = "✅ Command Sent!";
-                }, 10000);
-
                 document.getElementById('custom-name').value = '';
                 document.getElementById('custom-symbol').value = '';
+
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 15000);
+
             } catch (error) {
                 console.error("Deployment failed", error);
-                alert("Deployment failed: " + error.message);
+                status.textContent = "❌ Error: " + (error.data?.message || error.message || "Unknown Error");
+                status.style.background = "rgba(255, 0, 0, 0.1)";
+                status.style.color = "#ff4a4a";
+                alert("Deployment failed! Check status bar for details.");
             } finally {
                 btn.disabled = false;
                 btn.textContent = "🚀 Deploy Token";
