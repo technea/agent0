@@ -1,10 +1,10 @@
 {
   "agent_id": "84532:170729",
   "task_type": "erc20_deployment",
-  "timestamp": "2026-02-08T14:53:13.327720+00:00",
-  "tx_hash": "simulated_reputation_tx_2671",
+  "timestamp": "2026-02-08T15:13:20.111486+00:00",
+  "tx_hash": "simulated_reputation_tx_1852",
   "proof_data": {
-    "token_symbol": "HEN",
+    "token_symbol": "CIN",
     "transaction_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
   }
 }

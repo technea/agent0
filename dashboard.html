@@ -378,11 +378,11 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
                 <button id="mainnet-pay-btn" onclick="payAndDeploy()"
                     style="background: var(--accent-gradient); color: white; padding: 18px; border-radius: 16px; font-size: 16px; box-shadow: 0 10px 20px rgba(88, 166, 255, 0.2);">
-                    🚀 Deploy on Mainnet ($1 ETH)
+                    🚀 Deploy 7 Verified Contracts ($1)
                 </button>
                 <button id="sepolia-free-btn" onclick="handleDeploy()"
                     style="background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border-color); padding: 18px; border-radius: 16px;">
-                    🧪 Free Sepolia Test
+                    🧪 Free Sepolia Test (5 Tokens)
                 </button>
             </div>
 
@@ -546,24 +546,31 @@
                 }
 
                 btn.disabled = true;
-                btn.textContent = "⌛ Depolying to Sepolia...";
-                status.textContent = "⏳ Signing Transaction (Free Test)...";
+                btn.textContent = "⌛ Deploying 5 Tokens...";
                 status.style.display = 'block';
 
                 const factory = new ethers.ContractFactory(ERC20_ABI, ERC20_BYTECODE, signer);
-
-                // Use a smaller initial supply and handle gas
+                // Use a smaller initial supply
                 const initialSupply = ethers.utils.parseUnits("1000000", 18);
 
-                const contract = await factory.deploy(name, symbol, initialSupply, {
-                    gasLimit: 3000000 // Higher gas limit for safety on testnet
-                });
+                // Loop for 5 Sepolia Deployments
+                for (let i = 1; i <= 5; i++) {
+                    const currentName = i === 1 ? name : `${name} ${i}`;
+                    const currentSymbol = i === 1 ? symbol : `${symbol}${i}`;
 
-                status.textContent = "⏳ Waiting for Confirmation (Tx: " + contract.deployTransaction.hash.substring(0, 10) + "...)";
+                    status.textContent = `⏳ Sepolia Deployment ${i}/5: Signing...`;
 
-                await contract.deployed();
+                    const contract = await factory.deploy(currentName, currentSymbol, initialSupply, {
+                        gasLimit: 3000000
+                    });
 
-                status.textContent = "✅ " + name + " Deployed at " + contract.address;
+                    status.textContent = `⏳ Sepolia Deployment ${i}/5: Waiting for Confirmation...`;
+                    await contract.deployed();
+
+                    console.log(`Sepolia Token ${i} deployed:`, contract.address);
+                }
+
+                status.textContent = "✅ Success! 5 Tokens Deployed on Base Sepolia.";
                 document.getElementById('custom-name').value = '';
                 document.getElementById('custom-symbol').value = '';
 
@@ -579,7 +586,7 @@
                 alert("Deployment failed! Check status bar for details.");
             } finally {
                 btn.disabled = false;
-                btn.textContent = "🧪 Free Sepolia Test"; // Changed button text
+                btn.textContent = "🧪 Free Sepolia Test (5 Tokens)";
             }
         }
 
