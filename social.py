@@ -319,7 +319,10 @@ class SocialMediaManager:
 
 #Base #Crypto #OpenClaw #RevenueGeneration"""
         
-        return message
+        # Use a consistent, high-quality "New Token Alert" image
+        TOKEN_ALERT_IMAGE = "https://i.imgur.com/J8t4k9r.png" # Placeholder for a 'Token Launched' graphic
+
+        return self.post_to_farcaster(message, image_url=TOKEN_ALERT_IMAGE)
     
     def post_status_update(self, message: str) -> Dict[str, any]:
         """

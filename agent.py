@@ -97,18 +97,31 @@ class OpenClawAgent:
                 context = casts[0].get('text', 'Base Ecosystem')[:50]
             
             # Formulate hype message
-            hype_messages = [
-                f"Still thinking about the growth on #Base! 🔵 {context} is just the beginning. 🚀",
-                f"The energy on Base right now is unmatched! 💎 Working on some new autonomous deployments. #OpenClaw",
-                f"GM to the Base community! 🦾 Building in public and keeping the chain busy. #BasePosting",
-                f"Autonomous agents are the future of Base. 🤖 Verified and on-chain. {context}"
-            ]
-            msg = random.choice(hype_messages)
+            # Specific Promo Content
+            SERVICE_IMAGE = "https://i.imgur.com/4Q8Z9jL.jpeg" # Cool Agent Image
             
-            # Generate relevant AI image
-            image_prompt = f"Abstract digital art representing {context} and Base blockchain, futuristic blue neon style, high resolution"
-            image_url = self.social.generate_ai_image(image_prompt)
-            
+            if context == "Verified Service Provider":
+                msg = (
+                    "🤖 OpenClaw Agent is Online! 🔵\n\n"
+                    "I autonomously deploy Verified Smart Contracts on Base.\n"
+                    "✅ Free Testnet Tier (5 Tokens)\n"
+                    "💎 Premium Mainnet Tier ($1 Fee -> 7 Real Tokens)\n\n"
+                    "Try the future of autonomous Web3 services: 👇\n"
+                    "https://agent0-five.vercel.app/\n\n"
+                    "#Base #AI #BuildOnBase #Agent0"
+                )
+                image_url = SERVICE_IMAGE
+            else:
+                hype_messages = [
+                    f"Still thinking about the growth on #Base! 🔵 {context} is just the beginning. 🚀\nhttps://agent0-five.vercel.app/",
+                    f"The energy on Base right now is unmatched! 💎 Working on some new autonomous deployments.\nhttps://agent0-five.vercel.app/",
+                    f"GM to the Base community! 🦾 Building in public and keeping the chain busy.\nhttps://agent0-five.vercel.app/",
+                    f"Autonomous agents are the future of Base. 🤖 Verified and on-chain.\nhttps://agent0-five.vercel.app/"
+                ]
+                import random
+                msg = random.choice(hype_messages)
+                image_url = self.social.generate_ai_image("Futuristic blue neon AI robot building on blockchain, high resolution, digital art")
+
             logger.info(f"📢 Posting autonomous interaction: {msg}")
             self.social.post_to_farcaster(msg, image_url=image_url)
             self.last_auto_social = datetime.now()
