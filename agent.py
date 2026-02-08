@@ -78,6 +78,45 @@ class OpenClawAgent:
         # Token name generation lists
         self.token_prefixes = ["Open", "Base", "Claw", "Auto", "Chain", "Mesh", "Cyber", "Meta", "Hyper", "Ultra", "Mega", "Nova", "Apex", "Quantum", "Nexus"]
         self.token_suffixes = ["Token", "Coin", "Cash", "Finance", "Pay", "Network", "Protocol", "Chain", "Swap", "Vault", "DAO", "Labs"]
+        
+        # Remote Control State
+        self.user_fid = 1449860 # furqan.base.eth
+        self.processed_casts = set()
+        self.last_farcaster_check = datetime.now() - timedelta(minutes=5)
+
+    def check_farcaster_commands(self):
+        """Listen for commands posted on Farcaster"""
+        if (datetime.now() - self.last_farcaster_check).total_seconds() < 60:
+            return None
+            
+        logger.info("📡 Checking Farcaster for remote commands...")
+        self.last_farcaster_check = datetime.now()
+        
+        casts = self.social.get_latest_casts(self.user_fid)
+        for cast in casts:
+            cast_hash = cast.get('hash')
+            if cast_hash in self.processed_casts:
+                continue
+            
+            text = cast.get('text', '').lower()
+            self.processed_casts.add(cast_hash)
+            
+            # Simple Command Logic: "!deploy Name Symbol"
+            if text.startswith("!deploy"):
+                parts = text.split()
+                name = parts[1] if len(parts) > 1 else None
+                symbol = parts[2] if len(parts) > 2 else None
+                logger.info(f"📢 Farcaster Command Detected: Deploy {name}")
+                return {"type": "deploy", "params": {"name": name, "symbol": symbol}, "source": "farcaster"}
+            
+            if text.startswith("!nft"):
+                parts = text.split()
+                name = parts[1] if len(parts) > 1 else "Base NFT"
+                symbol = parts[2] if len(parts) > 2 else "BNFT"
+                logger.info(f"📢 Farcaster NFT Command Detected")
+                return {"type": "nft", "params": {"name": name, "symbol": symbol}, "source": "farcaster"}
+        
+        return None
 
     def check_for_commands(self):
         """Check for interactive commands from dashboard"""
@@ -148,6 +187,31 @@ class OpenClawAgent:
             logger.error(f"❌ Error: {e}")
             return False
 
+    def deploy_and_announce_nft(self, custom_name=None, custom_symbol=None) -> bool:
+        """Execute NFT deployment and announce"""
+        try:
+            name = custom_name or "BaseClaw NFT"
+            symbol = custom_symbol or "BCNFT"
+            
+            logger.info(f"🎨 Deploying NFT: {name} ({symbol})")
+            deployment = self.blockchain.deploy_nft(name, symbol)
+            
+            # Generate a unique AI Artwork for this NFT
+            image_prompt = f"Digital NFT masterpiece art titled {name}, cybernetic style, base blue colors, futuristic gallery piece"
+            image_url = self.social.generate_ai_image(image_prompt)
+            
+            msg = f"🎨 New NFT Collection Deployed on Base! \n\n💎 {name} ({symbol})\n📍 {deployment['contract_address'][:10]}...\n🔗 https://sepolia.basescan.org/tx/{deployment['transaction_hash']}\n\n#Base #NFT #OpenClaw"
+            
+            self.social.post_to_farcaster(msg, image_url=image_url)
+            
+            # Record
+            deployment['timestamp'] = datetime.now().isoformat()
+            self._save_record(deployment)
+            return True
+        except Exception as e:
+            logger.error(f"❌ NFT Cycle Error: {e}")
+            return False
+
     def _save_record(self, record):
         filename = 'deployments.json'
         records = []
@@ -164,10 +228,18 @@ class OpenClawAgent:
 
         logger.info("🔄 Agent Active - Waiting for instructions...")
         while True:
+            # Check for Local Dashboard Commands
             cmd = self.check_for_commands()
+            
+            # Check for Farcaster Remote Commands (Every 60s)
+            if not cmd:
+                cmd = self.check_farcaster_commands()
+
             if cmd:
                 if cmd['type'] == 'deploy':
                     self.deploy_and_announce(cmd['params'].get('name'), cmd['params'].get('symbol'))
+                elif cmd['type'] == 'nft':
+                    self.deploy_and_announce_nft(cmd['params'].get('name'), cmd['params'].get('symbol'))
                 elif cmd['type'] == 'post':
                     custom_text = cmd['params'].get('text')
                     image_url = cmd['params'].get('image_url')

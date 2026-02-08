@@ -816,5 +816,15 @@
     "transaction_hash": "0x3b02ce0df247aec5b1357475196a45a66f30977a018b9fd052ce5592e9125579",
     "initial_supply": 500000,
     "explorer_url": "https://sepolia.basescan.org/tx/0x3b02ce0df247aec5b1357475196a45a66f30977a018b9fd052ce5592e9125579"
+  },
+  {
+    "deployment_number": 1,
+    "timestamp": "2026-02-08T17:42:45.630121",
+    "token_name": "HyperCash",
+    "token_symbol": "HSH",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "0x13fab69de89b739f49c50c677430f8ea330927d3867aa67063f9b519fd53f119",
+    "initial_supply": 1000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/0x13fab69de89b739f49c50c677430f8ea330927d3867aa67063f9b519fd53f119"
   }
 ]

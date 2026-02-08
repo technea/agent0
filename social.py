@@ -57,6 +57,19 @@ class SocialMediaManager:
             logger.info("✅ X (Twitter) credentials configured")
         else:
             logger.warning("⚠️ X (Twitter) credentials not fully configured")
+            
+    def generate_ai_image(self, prompt: str) -> str:
+        """
+        Generates a dynamic AI image URL based on the prompt.
+        Uses Pollinations.ai for stable, high-quality on-the-fly generation.
+        """
+        # Clean prompt for URL
+        clean_prompt = prompt.replace(" ", "%20").replace("$", "")
+        # Parameters for premium look
+        params = "width=1024&height=1024&nologo=true&enhance=true"
+        image_url = f"https://pollinations.ai/p/{clean_prompt}?{params}"
+        logger.info(f"🎨 Generated AI Image URL: {image_url}")
+        return image_url
     
     def post_to_farcaster(self, message: str, image_url: Optional[str] = None) -> Dict[str, any]:
         """
@@ -98,6 +111,28 @@ class SocialMediaManager:
             logger.error(f"❌ Error posting to Farcaster: {str(e)}")
             return {'status': 'error', 'platform': 'farcaster', 'error': str(e)}
     
+    def get_latest_casts(self, fid: int, limit: int = 5) -> List[Dict]:
+        """
+        Fetch latest casts for a specific FID to look for commands
+        """
+        try:
+            if not self.farcaster_api_key:
+                return []
+            
+            url = f"https://api.neynar.com/v2/farcaster/feed/user/casts?fid={fid}&limit={limit}"
+            headers = {
+                "accept": "application/json",
+                "api_key": self.farcaster_api_key
+            }
+            
+            response = requests.get(url, headers=headers)
+            if response.status_code == 200:
+                return response.json().get('casts', [])
+            return []
+        except Exception as e:
+            logger.error(f"❌ Error fetching casts: {e}")
+            return []
+
     def post_to_x(self, message: str) -> Dict[str, any]:
         """
         Post a message to X (Twitter) using API v2
@@ -205,9 +240,13 @@ class SocialMediaManager:
             logger.info("📢 Announcing token deployment...")
             logger.info(f"Message: {message}")
             
+            # Generate a dynamic AI image for the token
+            image_prompt = f"Futuristic crypto token logo for {token_name} on Base blockchain, high tech, glowing blue and purple, 3d render"
+            image_url = self.generate_ai_image(image_prompt)
+            
             results = {
                 'message': message,
-                'farcaster': self.post_to_farcaster(message),
+                'farcaster': self.post_to_farcaster(message, image_url=image_url),
                 'x': self.post_to_x(message)
             }
             
