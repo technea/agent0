@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:53:01.011597+00:00",
+  "tx_hash": "simulated_reputation_tx_6534",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "ca18bcde719d609146601ddadb5ff444ae83669a4f54a3a835b4dfccc90ebcfd",
+    "token_name": "MegaChain",
+    "token_symbol": "MCHA",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

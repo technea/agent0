@@ -1,0 +1,10 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T12:08:14.879750+00:00",
+  "tx_hash": "simulated_reputation_tx_8493",
+  "proof_data": {
+    "token_symbol": "ASTE",
+    "transaction_hash": "0x1659cb50de33329621407564af1a4b7ba58a8953bd555bcdebbb9297d5190248"
+  }
+}

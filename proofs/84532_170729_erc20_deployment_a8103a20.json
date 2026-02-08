@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:36:51.706489+00:00",
+  "tx_hash": "simulated_reputation_tx_5387",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "b62161ee38752240667e68bc54bd074a68781eaa98c0496c964b58dda8103a20",
+    "token_name": "OpenLabs",
+    "token_symbol": "OLAB",
+    "initial_supply": 500000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

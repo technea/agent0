@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:39:18.036658+00:00",
+  "tx_hash": "simulated_reputation_tx_5389",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "c1ddc28ea89b17698bd90b72da327f9d40a3f0def73e0bb9d83f5f5a0a40ced6",
+    "token_name": "ChainNetwork",
+    "token_symbol": "CNET",
+    "initial_supply": 100000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

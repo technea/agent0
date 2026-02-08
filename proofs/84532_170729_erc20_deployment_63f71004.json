@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:44:05.613574+00:00",
+  "tx_hash": "simulated_reputation_tx_7457",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "3bce071ca8287294d2f7b8064f015d192ac8a25797b24192c5b89f5c63f71004",
+    "token_name": "BaseVault",
+    "token_symbol": "BVAU",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

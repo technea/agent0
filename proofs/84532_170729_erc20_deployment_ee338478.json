@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:46:30.287436+00:00",
+  "tx_hash": "simulated_reputation_tx_9758",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "03da9188552bbec1d81ba9eac803de6ea8d4b5095d756ca8aae8cfc3ee338478",
+    "token_name": "AutoFinance",
+    "token_symbol": "AFIN",
+    "initial_supply": 100000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

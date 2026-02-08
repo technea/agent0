@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:29:47.884862+00:00",
+  "tx_hash": "simulated_reputation_tx_3331",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "adaff8e87bb84b20ef27f7bf93d95627e92d9e8b70c8ae458b5ed59ba4909e72",
+    "token_name": "ChainCoin",
+    "token_symbol": "CCOI",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

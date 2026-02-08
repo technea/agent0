@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,9 +73,20 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(63, 185, 80, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(63, 185, 80, 0); }
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(63, 185, 80, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(63, 185, 80, 0);
+            }
         }
 
         .stats-grid {
@@ -189,12 +201,14 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <div>
                 <h1>OpenClaw Dashboard</h1>
-                <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Autonomous Agent0 / ERC-8004 Operator</p>
+                <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Autonomous Agent0 / ERC-8004
+                    Operator</p>
             </div>
             <div class="status-badge">
                 <div class="status-dot"></div>
@@ -217,6 +231,44 @@
             </div>
         </div>
 
+        <!-- Command Center -->
+        <div class="token-list" style="margin-bottom: 30px; padding: 25px; background: rgba(88, 166, 255, 0.05);">
+            <h3 style="margin-top: 0; color: var(--accent-color);">🎮 Agent Command Center</h3>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+                <div style="flex: 1; min-width: 200px;">
+                    <label
+                        style="display: block; font-size: 12px; margin-bottom: 5px; color: var(--text-secondary);">Custom
+                        Token Name</label>
+                    <input type="text" id="custom-name" placeholder="e.g. SatoshiToken"
+                        style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px;">
+                </div>
+                <div style="width: 120px;">
+                    <label
+                        style="display: block; font-size: 12px; margin-bottom: 5px; color: var(--text-secondary);">Symbol</label>
+                    <input type="text" id="custom-symbol" placeholder="SAT"
+                        style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px;">
+                </div>
+                <button onclick="sendCommand('deploy')"
+                    style="padding: 10px 20px; background: var(--success-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">🚀
+                    Deploy Token</button>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label style="display: block; font-size: 12px; margin-bottom: 5px; color: var(--text-secondary);">Custom
+                    Farcaster Post</label>
+                <div style="display: flex; gap: 15px;">
+                    <textarea id="custom-message" placeholder="What should the agent say on Farcaster?"
+                        style="flex: 1; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px; resize: none; height: 40px;"></textarea>
+                    <button onclick="sendCommand('post')"
+                        style="padding: 10px 20px; background: var(--accent-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">📢
+                        Manual Cast</button>
+                </div>
+            </div>
+
+            <p id="command-status" style="margin: 10px 0 0; font-size: 12px; color: #3fb950; display: none;">✅ Command
+                Sent!</p>
+        </div>
+
         <div class="token-list">
             <div class="list-header">Deployment History</div>
             <div id="deployment-history">
@@ -230,23 +282,52 @@
     </div>
 
     <script>
+        async function sendCommand(type) {
+            const name = document.getElementById('custom-name').value;
+            const symbol = document.getElementById('custom-symbol').value;
+            const text = document.getElementById('custom-message').value;
+            const status = document.getElementById('command-status');
+
+            try {
+                const response = await fetch('/api/command', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: type,
+                        params: { name, symbol, text }
+                    })
+                });
+
+                if (response.ok) {
+                    status.style.display = 'block';
+                    setTimeout(() => status.style.display = 'none', 3000);
+                    if (type === 'deploy') {
+                        document.getElementById('custom-name').value = '';
+                        document.getElementById('custom-symbol').value = '';
+                    }
+                }
+            } catch (e) {
+                console.error('Command failed', e);
+            }
+        }
+
         async function updateDashboard() {
             try {
                 // Fetch deployments
                 const depResponse = await fetch('deployments.json');
                 const deployments = await depResponse.json();
-                
+
                 // Fetch metadata for ID and Reputation
                 let metadata = { agent_id: '...', reputation: 0 };
                 try {
                     const metaResponse = await fetch('agent0_metadata.json');
                     metadata = await metaResponse.json();
-                } catch(e) {}
+                } catch (e) { }
 
                 // Update Stats
                 document.getElementById('total-deployments').textContent = deployments.length;
                 document.getElementById('agent-id').textContent = metadata.agent_id || 'Pending';
-                
+
                 // Fetch reputation count from proofs directory if possible (or just use deployment count)
                 // Since JS can't list dirs easily, we assume 1 proof per deployment
                 document.getElementById('reputation-score').textContent = deployments.length;
@@ -287,4 +368,5 @@
         setInterval(updateDashboard, 10000);
     </script>
 </body>
+
 </html>

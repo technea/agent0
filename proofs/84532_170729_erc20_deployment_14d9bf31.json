@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:50:48.902985+00:00",
+  "tx_hash": "simulated_reputation_tx_6973",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "05362051de7d872ca217c1108b7e14921ef638f820a1c940e316ed3a14d9bf31",
+    "token_name": "ChainProtocol",
+    "token_symbol": "CPRO",
+    "initial_supply": 5000000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

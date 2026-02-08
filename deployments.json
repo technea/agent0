@@ -478,5 +478,333 @@
       "x": "error"
     },
     "agent0_registered": true
+  },
+  {
+    "deployment_number": 5,
+    "timestamp": "2026-02-08T16:23:12.752524",
+    "token_name": "MetaCoin",
+    "token_symbol": "MCOI",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "1ee889d77ad882248494836e50015a10cb6737c581d4416de4251b6b3a109698",
+    "initial_supply": 5000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/1ee889d77ad882248494836e50015a10cb6737c581d4416de4251b6b3a109698",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 6,
+    "timestamp": "2026-02-08T16:25:23.243467",
+    "token_name": "UltraSwap",
+    "token_symbol": "USWA",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "462266851c705625962d1b5f0ea6524cb4a2418ee37e3a39d5acb7e4f9e274fa",
+    "initial_supply": 1000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/462266851c705625962d1b5f0ea6524cb4a2418ee37e3a39d5acb7e4f9e274fa",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 7,
+    "timestamp": "2026-02-08T16:27:36.261974",
+    "token_name": "ChainSwap",
+    "token_symbol": "CSWA",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "5e82d9d98802d617b1b65a5aa8f861970b1c4cac0a07daf1e332323fb2db7fa6",
+    "initial_supply": 500000,
+    "explorer_url": "https://sepolia.basescan.org/tx/5e82d9d98802d617b1b65a5aa8f861970b1c4cac0a07daf1e332323fb2db7fa6",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 8,
+    "timestamp": "2026-02-08T16:29:48.983589",
+    "token_name": "ChainCoin",
+    "token_symbol": "CCOI",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "adaff8e87bb84b20ef27f7bf93d95627e92d9e8b70c8ae458b5ed59ba4909e72",
+    "initial_supply": 1000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/adaff8e87bb84b20ef27f7bf93d95627e92d9e8b70c8ae458b5ed59ba4909e72",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 9,
+    "timestamp": "2026-02-08T16:31:59.217670",
+    "token_name": "ApexLabs",
+    "token_symbol": "ALAB",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "bc7c5b343a6a929e2ec475211e49d34b8747d08a763e095d4e835246f5bd1963",
+    "initial_supply": 100000,
+    "explorer_url": "https://sepolia.basescan.org/tx/bc7c5b343a6a929e2ec475211e49d34b8747d08a763e095d4e835246f5bd1963",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 10,
+    "timestamp": "2026-02-08T16:34:31.312417",
+    "token_name": "CyberPay",
+    "token_symbol": "CPAY",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "fb6cbb2008aad85c6deb9b718addc72ab14ca3513efd34a75733ab84abb1d066",
+    "initial_supply": 100000,
+    "explorer_url": "https://sepolia.basescan.org/tx/fb6cbb2008aad85c6deb9b718addc72ab14ca3513efd34a75733ab84abb1d066",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 11,
+    "timestamp": "2026-02-08T16:36:59.645617",
+    "token_name": "OpenLabs",
+    "token_symbol": "OLAB",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "b62161ee38752240667e68bc54bd074a68781eaa98c0496c964b58dda8103a20",
+    "initial_supply": 500000,
+    "explorer_url": "https://sepolia.basescan.org/tx/b62161ee38752240667e68bc54bd074a68781eaa98c0496c964b58dda8103a20",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 12,
+    "timestamp": "2026-02-08T16:39:19.030115",
+    "token_name": "ChainNetwork",
+    "token_symbol": "CNET",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "c1ddc28ea89b17698bd90b72da327f9d40a3f0def73e0bb9d83f5f5a0a40ced6",
+    "initial_supply": 100000,
+    "explorer_url": "https://sepolia.basescan.org/tx/c1ddc28ea89b17698bd90b72da327f9d40a3f0def73e0bb9d83f5f5a0a40ced6",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 13,
+    "timestamp": "2026-02-08T16:41:32.307245",
+    "token_name": "OpenPay",
+    "token_symbol": "OPAY",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "2302c2d10b65883419e387730864a85f21759e847cc456d425f31d5eed4397e2",
+    "initial_supply": 5000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/2302c2d10b65883419e387730864a85f21759e847cc456d425f31d5eed4397e2",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 14,
+    "timestamp": "2026-02-08T16:44:07.971898",
+    "token_name": "BaseVault",
+    "token_symbol": "BVAU",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "3bce071ca8287294d2f7b8064f015d192ac8a25797b24192c5b89f5c63f71004",
+    "initial_supply": 1000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/3bce071ca8287294d2f7b8064f015d192ac8a25797b24192c5b89f5c63f71004",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "error",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 15,
+    "timestamp": "2026-02-08T16:46:31.191239",
+    "token_name": "AutoFinance",
+    "token_symbol": "AFIN",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "03da9188552bbec1d81ba9eac803de6ea8d4b5095d756ca8aae8cfc3ee338478",
+    "initial_supply": 100000,
+    "explorer_url": "https://sepolia.basescan.org/tx/03da9188552bbec1d81ba9eac803de6ea8d4b5095d756ca8aae8cfc3ee338478",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 16,
+    "timestamp": "2026-02-08T16:48:41.335276",
+    "token_name": "ApexVault",
+    "token_symbol": "AVAU",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "12b298a565440a271db0e8689b609893ea67084f50a11c21cd270ab318fe9fd7",
+    "initial_supply": 1000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/12b298a565440a271db0e8689b609893ea67084f50a11c21cd270ab318fe9fd7",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 17,
+    "timestamp": "2026-02-08T16:50:49.905164",
+    "token_name": "ChainProtocol",
+    "token_symbol": "CPRO",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "05362051de7d872ca217c1108b7e14921ef638f820a1c940e316ed3a14d9bf31",
+    "initial_supply": 5000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/05362051de7d872ca217c1108b7e14921ef638f820a1c940e316ed3a14d9bf31",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 18,
+    "timestamp": "2026-02-08T16:53:02.591333",
+    "token_name": "MegaChain",
+    "token_symbol": "MCHA",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "ca18bcde719d609146601ddadb5ff444ae83669a4f54a3a835b4dfccc90ebcfd",
+    "initial_supply": 1000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/ca18bcde719d609146601ddadb5ff444ae83669a4f54a3a835b4dfccc90ebcfd",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 19,
+    "timestamp": "2026-02-08T16:55:11.760201",
+    "token_name": "ApexToken",
+    "token_symbol": "ATOK",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "16ce718812813bc3a8a87cd8d56b055112efac691cdcb1dc97f5294af537c2eb",
+    "initial_supply": 5000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/16ce718812813bc3a8a87cd8d56b055112efac691cdcb1dc97f5294af537c2eb",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 20,
+    "timestamp": "2026-02-08T16:57:28.682874",
+    "token_name": "AutoProtocol",
+    "token_symbol": "APRO",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "889b8bd40059d3b2597ecc1900c6a074b21b7231851b73a7f5458aae4788b76f",
+    "initial_supply": 100000,
+    "explorer_url": "https://sepolia.basescan.org/tx/889b8bd40059d3b2597ecc1900c6a074b21b7231851b73a7f5458aae4788b76f",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 21,
+    "timestamp": "2026-02-08T16:59:36.888511",
+    "token_name": "CyberCash",
+    "token_symbol": "CCAS",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "414b7b0dbc00a9b6a0c3ef827183f5c531d894bb5571b2657c9c2ef79694f569",
+    "initial_supply": 100000,
+    "explorer_url": "https://sepolia.basescan.org/tx/414b7b0dbc00a9b6a0c3ef827183f5c531d894bb5571b2657c9c2ef79694f569",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 22,
+    "timestamp": "2026-02-08T17:01:59.525324",
+    "token_name": "HyperLabs",
+    "token_symbol": "HLAB",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "cfcfddd6b012b0d1c8284b5686882b306f071588f35855e1c03e360194c4ee1e",
+    "initial_supply": 1000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/cfcfddd6b012b0d1c8284b5686882b306f071588f35855e1c03e360194c4ee1e",
+    "gas_used": 2000000,
+    "social_results": {
+      "farcaster": "success",
+      "x": "error"
+    },
+    "agent0_registered": true
+  },
+  {
+    "deployment_number": 1,
+    "timestamp": "2026-02-08T17:05:48.334676",
+    "token_name": "QuantumSwap",
+    "token_symbol": "QAP",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "0x58eebe19efec185ed7a40657224b34f88752047711270e79418255b70c931ae8",
+    "initial_supply": 100000,
+    "explorer_url": "https://sepolia.basescan.org/tx/0x58eebe19efec185ed7a40657224b34f88752047711270e79418255b70c931ae8"
+  },
+  {
+    "deployment_number": 2,
+    "timestamp": "2026-02-08T17:07:45.005336",
+    "token_name": "resr",
+    "token_symbol": "set",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "0x3863a394c63ac2cdc2853688d216a8a609ed24fe3f9c6e8d1cbbe07431e44f72",
+    "initial_supply": 500000,
+    "explorer_url": "https://sepolia.basescan.org/tx/0x3863a394c63ac2cdc2853688d216a8a609ed24fe3f9c6e8d1cbbe07431e44f72"
+  },
+  {
+    "deployment_number": 3,
+    "timestamp": "2026-02-08T17:08:14.880277",
+    "token_name": "Wingtyy",
+    "token_symbol": "ASTE",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "0x1659cb50de33329621407564af1a4b7ba58a8953bd555bcdebbb9297d5190248",
+    "initial_supply": 100000,
+    "explorer_url": "https://sepolia.basescan.org/tx/0x1659cb50de33329621407564af1a4b7ba58a8953bd555bcdebbb9297d5190248"
+  },
+  {
+    "deployment_number": 1,
+    "timestamp": "2026-02-08T17:16:39.674096",
+    "token_name": "ApexDAO",
+    "token_symbol": "AAO",
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "0x529aaa4bb736d0b11d39c2a147c46998144998fc0c0b763b53900042ed5d921a",
+    "initial_supply": 1000000,
+    "explorer_url": "https://sepolia.basescan.org/tx/0x529aaa4bb736d0b11d39c2a147c46998144998fc0c0b763b53900042ed5d921a"
   }
 ]

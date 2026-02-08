@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:57:26.779463+00:00",
+  "tx_hash": "simulated_reputation_tx_5487",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "889b8bd40059d3b2597ecc1900c6a074b21b7231851b73a7f5458aae4788b76f",
+    "token_name": "AutoProtocol",
+    "token_symbol": "APRO",
+    "initial_supply": 100000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

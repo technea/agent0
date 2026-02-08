@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T12:01:57.587707+00:00",
+  "tx_hash": "simulated_reputation_tx_7378",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "cfcfddd6b012b0d1c8284b5686882b306f071588f35855e1c03e360194c4ee1e",
+    "token_name": "HyperLabs",
+    "token_symbol": "HLAB",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

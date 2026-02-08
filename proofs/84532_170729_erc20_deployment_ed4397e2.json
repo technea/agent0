@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:41:31.332101+00:00",
+  "tx_hash": "simulated_reputation_tx_4544",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "2302c2d10b65883419e387730864a85f21759e847cc456d425f31d5eed4397e2",
+    "token_name": "OpenPay",
+    "token_symbol": "OPAY",
+    "initial_supply": 5000000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

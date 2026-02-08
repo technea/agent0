@@ -195,7 +195,7 @@ class BlockchainManager:
                 
                 return {
                     'contract_address': contract_address,
-                    'transaction_hash': tx_hash.hex(),
+                    'transaction_hash': "0x" + tx_hash.hex(),
                     'name': name,
                     'symbol': symbol,
                     'initial_supply': initial_supply,
@@ -208,7 +208,7 @@ class BlockchainManager:
                 logger.info("🔧 Falling back to resilient mode for demo...")
                 return {
                     'contract_address': "0x" + "b"*40,
-                    'transaction_hash': tx_hash.hex(),
+                    'transaction_hash': "0x" + tx_hash.hex(),
                     'name': name,
                     'symbol': symbol,
                     'initial_supply': initial_supply,
@@ -266,16 +266,13 @@ class BlockchainManager:
     
     def get_explorer_url(self, tx_hash: str) -> str:
         """
-        Get block explorer URL for a transaction
-        
-        Args:
-            tx_hash: Transaction hash
-        
-        Returns:
-            Block explorer URL
+        Get block explorer URL for a transaction (Mainnet or Sepolia)
         """
-        # Base Sepolia explorer
-        return f"https://sepolia.basescan.org/tx/{tx_hash}"
+        chain_id = self.w3.eth.chain_id
+        if chain_id == 8453: # Base Mainnet
+            return f"https://basescan.org/tx/{tx_hash}"
+        else: # Default to Base Sepolia
+            return f"https://sepolia.basescan.org/tx/{tx_hash}"
 
 
 if __name__ == "__main__":

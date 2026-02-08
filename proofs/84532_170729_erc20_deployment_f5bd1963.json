@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:31:58.351799+00:00",
+  "tx_hash": "simulated_reputation_tx_8235",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "bc7c5b343a6a929e2ec475211e49d34b8747d08a763e095d4e835246f5bd1963",
+    "token_name": "ApexLabs",
+    "token_symbol": "ALAB",
+    "initial_supply": 100000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

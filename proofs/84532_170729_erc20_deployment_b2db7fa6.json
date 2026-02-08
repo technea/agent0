@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:27:35.250397+00:00",
+  "tx_hash": "simulated_reputation_tx_1701",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "5e82d9d98802d617b1b65a5aa8f861970b1c4cac0a07daf1e332323fb2db7fa6",
+    "token_name": "ChainSwap",
+    "token_symbol": "CSWA",
+    "initial_supply": 500000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

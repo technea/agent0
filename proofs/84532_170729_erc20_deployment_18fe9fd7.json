@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:48:40.393257+00:00",
+  "tx_hash": "simulated_reputation_tx_2157",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "12b298a565440a271db0e8689b609893ea67084f50a11c21cd270ab318fe9fd7",
+    "token_name": "ApexVault",
+    "token_symbol": "AVAU",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

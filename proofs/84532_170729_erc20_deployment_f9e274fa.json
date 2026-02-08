@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:25:22.149689+00:00",
+  "tx_hash": "simulated_reputation_tx_2932",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "462266851c705625962d1b5f0ea6524cb4a2418ee37e3a39d5acb7e4f9e274fa",
+    "token_name": "UltraSwap",
+    "token_symbol": "USWA",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}
