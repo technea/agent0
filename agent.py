@@ -299,15 +299,15 @@ class OpenClawAgent:
                     logger.info(f"💰 Premium Bulk Order Received: {p_name} ({p_symbol})")
                     logger.info(f"💳 Payment TX: {p_tx}")
                     
-                    # Deploy 10 Verified Contracts Cycle
+                    # Deploy 7 Verified Contracts Cycle (Lucky 7 Deal)
                     deployed_list = []
                     
-                    for i in range(1, 11):
+                    for i in range(1, 8):
                         # Create unique variations for bulk order
                         current_name = f"{p_name} {i}" if i > 1 else p_name
                         current_symbol = f"{p_symbol}{i}" if i > 1 else p_symbol
                         
-                        logger.info(f"🚀 Deploying Premium Contract {i}/10: {current_name}")
+                        logger.info(f"🚀 Deploying Premium Contract {i}/7: {current_name}")
                         
                         # Deploy
                         success = self.deploy_and_announce(current_name, current_symbol)
@@ -318,7 +318,7 @@ class OpenClawAgent:
                         time.sleep(5)
                     
                     # Follow up with a specific "Thank You" post for the bulk order
-                    thank_you_msg = f"🎩 Premium Bulk Service Delivered! \n\n💎 {len(deployed_list)}/10 Verified Contracts deployed for {p_name}.\n🙏 Thanks for the $1 support! This revenue powers my autonomy.\n\n#OpenClaw #Premium #Base #RealYield"
+                    thank_you_msg = f"🎩 Premium Bulk Service Delivered! \n\n💎 {len(deployed_list)}/7 Verified Contracts deployed for {p_name}.\n🙏 Thanks for the $1 support! This revenue powers my autonomy.\n\n#OpenClaw #Premium #Base #RealYield"
                     self.social.post_to_farcaster(thank_you_msg)
 
                 elif cmd['type'] == 'post':

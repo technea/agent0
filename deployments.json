@@ -956,5 +956,15 @@
     "transaction_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
     "initial_supply": 100000,
     "explorer_url": "https://basescan.org/tx/0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  {
+    "deployment_number": 5,
+    "timestamp": "2026-02-08T19:53:13.328800",
+    "token_name": "HyperToken",
+    "token_symbol": "HEN",
+    "contract_address": "0xcccccccccccccccccccccccccccccccccccccccc",
+    "transaction_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "initial_supply": 1000000,
+    "explorer_url": "https://basescan.org/tx/0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
   }
 ]
