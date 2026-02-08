@@ -49,6 +49,7 @@
             font-size: 24px;
             background: linear-gradient(90deg, #58a6ff, #bc8cff);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -256,12 +257,16 @@
             <div style="margin-top: 20px;">
                 <label style="display: block; font-size: 12px; margin-bottom: 5px; color: var(--text-secondary);">Custom
                     Farcaster Post</label>
-                <div style="display: flex; gap: 15px;">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
                     <textarea id="custom-message" placeholder="What should the agent say on Farcaster?"
-                        style="flex: 1; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px; resize: none; height: 40px;"></textarea>
-                    <button onclick="sendCommand('post')"
-                        style="padding: 10px 20px; background: var(--accent-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">📢
-                        Manual Cast</button>
+                        style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px; resize: none; height: 60px;"></textarea>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="text" id="image-url" placeholder="Image URL (optional)"
+                            style="flex: 1; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px;">
+                        <button onclick="sendCommand('post')"
+                            style="padding: 10px 20px; background: var(--accent-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">📢
+                            Manual Cast</button>
+                    </div>
                 </div>
             </div>
 
@@ -286,6 +291,7 @@
             const name = document.getElementById('custom-name').value;
             const symbol = document.getElementById('custom-symbol').value;
             const text = document.getElementById('custom-message').value;
+            const image_url = document.getElementById('image-url').value;
             const status = document.getElementById('command-status');
 
             try {
@@ -294,7 +300,7 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         type: type,
-                        params: { name, symbol, text }
+                        params: { name, symbol, text, image_url }
                     })
                 });
 
@@ -304,6 +310,9 @@
                     if (type === 'deploy') {
                         document.getElementById('custom-name').value = '';
                         document.getElementById('custom-symbol').value = '';
+                    } else if (type === 'post') {
+                        document.getElementById('custom-message').value = '';
+                        document.getElementById('image-url').value = '';
                     }
                 }
             } catch (e) {
@@ -313,31 +322,23 @@
 
         async function updateDashboard() {
             try {
-                // Fetch deployments
                 const depResponse = await fetch('deployments.json');
                 const deployments = await depResponse.json();
 
-                // Fetch metadata for ID and Reputation
                 let metadata = { agent_id: '...', reputation: 0 };
                 try {
                     const metaResponse = await fetch('agent0_metadata.json');
                     metadata = await metaResponse.json();
                 } catch (e) { }
 
-                // Update Stats
                 document.getElementById('total-deployments').textContent = deployments.length;
                 document.getElementById('agent-id').textContent = metadata.agent_id || 'Pending';
-
-                // Fetch reputation count from proofs directory if possible (or just use deployment count)
-                // Since JS can't list dirs easily, we assume 1 proof per deployment
                 document.getElementById('reputation-score').textContent = deployments.length;
 
-                // Render List
                 const historyEl = document.getElementById('deployment-history');
                 if (deployments.length > 0) {
                     historyEl.innerHTML = '';
-                    // Show latest first
-                    deployments.reverse().forEach(dep => {
+                    [...deployments].reverse().forEach(dep => {
                         const date = new Date(dep.timestamp).toLocaleString();
                         const row = document.createElement('div');
                         row.className = 'token-item';
@@ -363,9 +364,8 @@
             }
         }
 
-        // Update every 10 seconds
         updateDashboard();
-        setInterval(updateDashboard, 10000);
+        setInterval(updateDashboard, 5000);
     </script>
 </body>
 

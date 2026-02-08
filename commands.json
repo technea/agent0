@@ -25,5 +25,16 @@
     },
     "timestamp": 1770552466.8429558,
     "executed": true
+  },
+  {
+    "type": "post",
+    "params": {
+      "name": "",
+      "symbol": "",
+      "text": "Hi do baseposting for me",
+      "image_url": ""
+    },
+    "timestamp": 1770553569.162532,
+    "executed": true
   }
 ]

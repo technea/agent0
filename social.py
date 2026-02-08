@@ -58,26 +58,18 @@ class SocialMediaManager:
         else:
             logger.warning("⚠️ X (Twitter) credentials not fully configured")
     
-    def post_to_farcaster(self, message: str) -> Dict[str, any]:
+    def post_to_farcaster(self, message: str, image_url: Optional[str] = None) -> Dict[str, any]:
         """
-        Post a message to Farcaster using Neynar API
-        
-        Args:
-            message: Message content to post
-        
-        Returns:
-            Response data from Farcaster API
+        Post a message to Farcaster using Neynar API with optional image
         """
         try:
             if not self.farcaster_api_key:
                 logger.warning("⚠️ Farcaster API key not configured. Skipping post.")
                 return {'status': 'skipped', 'reason': 'no_api_key'}
             
-            logger.info("📤 Posting to Farcaster...")
+            logger.info(f"📤 Posting to Farcaster: {message[:30]}...")
             
-            # Using Neynar API v2 endpoint
             url = "https://api.neynar.com/v2/farcaster/cast"
-            
             headers = {
                 "accept": "application/json",
                 "api_key": self.farcaster_api_key,
@@ -89,33 +81,22 @@ class SocialMediaManager:
                 "text": message
             }
             
+            if image_url:
+                payload["embeds"] = [{"url": image_url}]
+            
             response = requests.post(url, json=payload, headers=headers)
             
             if response.status_code == 200:
                 data = response.json()
                 logger.info(f"✅ Successfully posted to Farcaster!")
-                logger.info(f"Cast hash: {data.get('cast', {}).get('hash', 'N/A')}")
-                return {
-                    'status': 'success',
-                    'platform': 'farcaster',
-                    'response': data
-                }
+                return {'status': 'success', 'platform': 'farcaster', 'response': data}
             else:
                 logger.error(f"❌ Failed to post to Farcaster: {response.status_code}")
-                logger.error(f"Response: {response.text}")
-                return {
-                    'status': 'error',
-                    'platform': 'farcaster',
-                    'error': response.text
-                }
+                return {'status': 'error', 'platform': 'farcaster', 'error': response.text}
                 
         except Exception as e:
             logger.error(f"❌ Error posting to Farcaster: {str(e)}")
-            return {
-                'status': 'error',
-                'platform': 'farcaster',
-                'error': str(e)
-            }
+            return {'status': 'error', 'platform': 'farcaster', 'error': str(e)}
     
     def post_to_x(self, message: str) -> Dict[str, any]:
         """

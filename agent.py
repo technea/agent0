@@ -170,9 +170,10 @@ class OpenClawAgent:
                     self.deploy_and_announce(cmd['params'].get('name'), cmd['params'].get('symbol'))
                 elif cmd['type'] == 'post':
                     custom_text = cmd['params'].get('text')
+                    image_url = cmd['params'].get('image_url')
                     if custom_text:
                         logger.info(f"📤 Custom Manual Post: {custom_text}")
-                        self.social.post_to_farcaster(custom_text)
+                        self.social.post_to_farcaster(custom_text, image_url=image_url)
                     elif self.deployment_history:
                         latest = self.deployment_history[-1]
                         self.social.post_to_farcaster(f"Manual Verified Update: Agent just verified {latest['token_name']} on-chain! 🤖")
