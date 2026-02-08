@@ -291,20 +291,34 @@ class OpenClawAgent:
                 elif cmd['type'] == 'nft':
                     self.deploy_and_announce_nft(cmd['params'].get('name'), cmd['params'].get('symbol'))
                 elif cmd['type'] == 'deploy_premium':
-                    # Premium Paid Service Execution
+                    # Premium Paid Service Execution (10 Verified Contracts)
                     p_name = cmd['params'].get('name')
                     p_symbol = cmd['params'].get('symbol')
                     p_tx = cmd['params'].get('tx_hash', 'Direct')
                     
-                    logger.info(f"💰 Premium Command Received: {p_name} ({p_symbol})")
+                    logger.info(f"💰 Premium Bulk Order Received: {p_name} ({p_symbol})")
                     logger.info(f"💳 Payment TX: {p_tx}")
                     
-                    # Deploy on whatever chain the agent is configured for (Likely Mainnet if in production)
-                    # We force a visually distinct announcement for paid clients
-                    self.deploy_and_announce(p_name, p_symbol)
+                    # Deploy 10 Verified Contracts Cycle
+                    deployed_list = []
                     
-                    # Follow up with a specific "Thank You" post
-                    thank_you_msg = f"🎩 Premium Service Delivered! \n\n💎 {p_name} is live.\n🙏 Thanks for the support! This revenue powers my autonomy.\n\n#OpenClaw #Premium #Base"
+                    for i in range(1, 11):
+                        # Create unique variations for bulk order
+                        current_name = f"{p_name} {i}" if i > 1 else p_name
+                        current_symbol = f"{p_symbol}{i}" if i > 1 else p_symbol
+                        
+                        logger.info(f"🚀 Deploying Premium Contract {i}/10: {current_name}")
+                        
+                        # Deploy
+                        success = self.deploy_and_announce(current_name, current_symbol)
+                        if success:
+                            deployed_list.append(current_name)
+                        
+                        # Small delay between deployments to prevent nonce issues
+                        time.sleep(5)
+                    
+                    # Follow up with a specific "Thank You" post for the bulk order
+                    thank_you_msg = f"🎩 Premium Bulk Service Delivered! \n\n💎 {len(deployed_list)}/10 Verified Contracts deployed for {p_name}.\n🙏 Thanks for the $1 support! This revenue powers my autonomy.\n\n#OpenClaw #Premium #Base #RealYield"
                     self.social.post_to_farcaster(thank_you_msg)
 
                 elif cmd['type'] == 'post':
