@@ -315,21 +315,27 @@
         const ERC20_BYTECODE = "0x60806040523480156200001157600080fd5b5060405162000e9638038062000e968339818101604052810190620000379190620002e4565b82600390816200004891906200058a565b5081600490816200005a91906200058a565b508060058190555080600080620000766200012960201b60201c565b73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508073ffffffffffffffffffffffffffffffffffffffff16600073ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef836040516200011591906200067c565b60405180910390a3505050620006b9565b600033905090565b6000604051905090565b600080fd";
 
         async function connectWallet() {
-            if (window.ethereum) {
+            console.log("Connect Wallet clicked");
+            if (typeof window.ethereum !== 'undefined') {
                 try {
+                    console.log("Ethereum provider found, requesting accounts...");
                     provider = new ethers.providers.Web3Provider(window.ethereum);
-                    await provider.send("eth_requestAccounts", []);
+                    const accounts = await provider.send("eth_requestAccounts", []);
                     signer = provider.getSigner();
-                    userAddress = await signer.getAddress();
+                    userAddress = accounts[0];
+                    console.log("Connected address:", userAddress);
 
                     document.getElementById('user-address').textContent = userAddress.substring(0, 6) + '...' + userAddress.substring(38);
                     document.getElementById('connect-wallet').textContent = 'Connected';
+                    document.getElementById('connect-wallet').style.background = 'var(--success-color)';
                     document.getElementById('deployment-mode').textContent = 'Mode: User Manual (connected)';
                 } catch (error) {
-                    console.error("User denied account access", error);
+                    console.error("Connection error:", error);
+                    alert("Connection failed: " + error.message);
                 }
             } else {
-                alert("Please install MetaMask!");
+                console.warn("MetaMask not found");
+                alert("Please install MetaMask or a Web3 wallet extension!");
             }
         }
 
