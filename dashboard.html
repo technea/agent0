@@ -260,6 +260,9 @@
                     <input type="text" id="custom-symbol" placeholder="SAT"
                         style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px;">
                 </div>
+                <button onclick="agentDesignToken()"
+                    style="padding: 10px; background: rgba(88,166,255,0.1); border: 1px dashed var(--accent-color); color: var(--accent-color); border-radius: 6px; cursor: pointer; font-size: 12px;">🪄
+                    Agent Suggest</button>
                 <button id="deploy-btn" onclick="handleDeploy()"
                     style="padding: 10px 20px; background: var(--success-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">🚀
                     Deploy Token</button>
@@ -313,6 +316,22 @@
         ];
 
         const ERC20_BYTECODE = "0x60806040523480156200001157600080fd5b5060405162000e9638038062000e968339818101604052810190620000379190620002e4565b82600390816200004891906200058a565b5081600490816200005a91906200058a565b508060058190555080600080620000766200012960201b60201c565b73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508073ffffffffffffffffffffffffffffffffffffffff16600073ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef836040516200011591906200067c565b60405180910390a3505050620006b9565b600033905090565b6000604051905090565b600080fd";
+
+        function agentDesignToken() {
+            const prefixes = ["Open", "Base", "Claw", "Auto", "Chain", "Mesh", "Cyber", "Meta", "Hyper", "Ultra", "Mega", "Nova", "Apex", "Quantum", "Nexus"];
+            const suffixes = ["Token", "Coin", "Cash", "Finance", "Pay", "Network", "Protocol", "Chain", "Swap", "Vault", "DAO", "Labs"];
+
+            const name = prefixes[Math.floor(Math.random() * prefixes.length)] + suffixes[Math.floor(Math.random() * suffixes.length)];
+            const symbol = (name[0] + name[name.length - 2] + name[name.length - 1]).toUpperCase();
+
+            document.getElementById('custom-name').value = name;
+            document.getElementById('custom-symbol').value = symbol;
+
+            const status = document.getElementById('command-status');
+            status.textContent = "🪄 Agent suggested: " + name;
+            status.style.display = 'block';
+            setTimeout(() => status.style.display = 'none', 3000);
+        }
 
         async function connectWallet() {
             console.log("Connect Wallet clicked");
