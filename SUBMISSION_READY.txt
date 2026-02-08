@@ -1,0 +1,33 @@
+🚀 SUBMISSION READY! 
+
+Aapka agent 5ETH prize pool ke liye puri tarah tayyar hai. 
+
+Submission ke liye aapko ye steps follow karne hain:
+
+1. GO TO THE POST:
+Judges ki di hui Farcaster ya X post par jayen.
+
+2. YOUR COMMENT:
+Wahan niche di gayi details as a comment post karein:
+
+---
+🤖 Meet OpenClaw: Fully Autonomous AI Creative Agent on Base 🟦
+
+My agent is live and builder-ready! It handles:
+✅ Autonomous Token & NFT Deployments
+✅ Live AI Image Generation for every post
+✅ Socio-Autonomous profile engagement
+✅ ERC-8004 Compliant (Agent ID: 84532:170729)
+
+Profile: https://warpcast.com/furqan.base.eth 
+Live Dashboard: https://agent0-five.vercel.app/ 
+GitHub (Open Source): https://github.com/technea/agent0.git
+
+Built with @agent0 and @base primitives. #BaseAgent #BBQ
+---
+
+3. FINAL CHECK:
+- Make sure terminal mein 'ebad8456-ae91-4f3e-8fb3-5eb3a8c9396b' (ya agent process) chal raha hai.
+- Warpcast par check karein ke naye posts AI pictures ke sath aa rahe hain.
+
+Good luck! OpenClaw is one of the most advanced agents in this competition because of the AI visuals and social listening features. 🦾🔥🏆
