@@ -946,5 +946,15 @@
     "transaction_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
     "initial_supply": 1000000,
     "explorer_url": "https://basescan.org/tx/0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  {
+    "deployment_number": 4,
+    "timestamp": "2026-02-08T19:33:00.927400",
+    "token_name": "CyberProtocol",
+    "token_symbol": "COL",
+    "contract_address": "0xcccccccccccccccccccccccccccccccccccccccc",
+    "transaction_hash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "initial_supply": 100000,
+    "explorer_url": "https://basescan.org/tx/0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
   }
 ]

@@ -372,12 +372,23 @@
                     <button onclick="agentDesignToken()"
                         style="background: rgba(88,166,255,0.1); border: 1px dashed var(--accent-color); color: var(--accent-color); flex: 1;">🪄
                         Suggest</button>
-                    <button id="deploy-btn" onclick="handleDeploy()" style="flex: 2;">🚀 Deploy</button>
                 </div>
             </div>
 
-            <button id="batch-deploy-btn" onclick="handleBatchDeploy()" style="width: 100%; margin-bottom: 20px;">💎
-                Batch Deploy 5 (Agent AI Designs + Direct Wallet Integration)</button>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                <button id="mainnet-pay-btn" onclick="payAndDeploy()"
+                    style="background: var(--accent-gradient); color: white; padding: 18px; border-radius: 16px; font-size: 16px; box-shadow: 0 10px 20px rgba(88, 166, 255, 0.2);">
+                    🚀 Deploy on Mainnet ($1 ETH)
+                </button>
+                <button id="sepolia-free-btn" onclick="handleDeploy()"
+                    style="background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border-color); padding: 18px; border-radius: 16px;">
+                    🧪 Free Sepolia Test
+                </button>
+            </div>
+
+            <button id="batch-deploy-btn" onclick="handleBatchDeploy()"
+                style="width: 100%; margin-bottom: 20px; opacity: 0.8; font-size: 12px;">💎 Batch Deploy 5 (Agent AI
+                Designs - Manual Wallet)</button>
 
             <div style="border-top: 1px solid var(--border-color); padding-top: 20px;">
                 <label
@@ -504,7 +515,7 @@
             const name = document.getElementById('custom-name').value || "UserToken";
             const symbol = document.getElementById('custom-symbol').value || "UTK";
             const status = document.getElementById('command-status');
-            const btn = document.getElementById('deploy-btn');
+            const btn = document.getElementById('sepolia-free-btn'); // Changed to sepolia-free-btn
 
             if (!name || !symbol) {
                 alert("Please provide name and symbol");
@@ -555,7 +566,54 @@
                 alert("Deployment failed! Check status bar for details.");
             } finally {
                 btn.disabled = false;
-                btn.textContent = "🚀 Deploy Token";
+                btn.textContent = "🧪 Free Sepolia Test"; // Changed button text
+            }
+        }
+
+        async function payAndDeploy() {
+            if (!userAddress || !signer) {
+                alert("Please connect wallet first!");
+                return;
+            }
+
+            const name = document.getElementById('custom-name').value || "PremiumToken";
+            const symbol = document.getElementById('custom-symbol').value || "PRM";
+            const status = document.getElementById('command-status');
+            const btn = document.getElementById('mainnet-pay-btn');
+
+            try {
+                // Network check: Must be on Base Mainnet to pay
+                const { chainId } = await provider.getNetwork();
+                if (chainId !== 8453) {
+                    alert("Switch to Base Mainnet (8453) to use the $1 Premium Service.");
+                    return;
+                }
+
+                btn.disabled = true;
+                btn.textContent = "⏳ Processing $1 Payment...";
+                status.style.display = 'block';
+                status.textContent = "💳 Please confirm the $1 (approx 0.0004 ETH) payment in your wallet...";
+
+                // Send $1 (approx 0.0004 ETH) to dev address
+                const devAddress = "0x56c06036521f05Da74519A7c41223A5fF239C6BF";
+                const tx = await signer.sendTransaction({
+                    to: devAddress,
+                    value: ethers.utils.parseEther("0.0004")
+                });
+
+                status.textContent = "⏳ Waiting for Payment Confirmation...";
+                await tx.wait();
+
+                status.textContent = "✅ Payment Received! Signal sent to Agent for Autonomous Deployment...";
+
+                // Signal Agent to deploy on Mainnet using Agent Funds
+                await sendCommand('deploy_premium', { name, symbol, tx_hash: tx.hash });
+
+            } catch (error) {
+                console.error("Payment failed", error);
+                status.textContent = "❌ Service Error: " + (error.message || "Payment Failed");
+                btn.disabled = false;
+                btn.textContent = "🚀 Deploy on Mainnet ($1 ETH)";
             }
         }
 
@@ -614,26 +672,31 @@
                 status.style.background = "rgba(255, 0, 0, 0.1)";
             } finally {
                 btn.disabled = false;
-                btn.textContent = "💎 Batch Deploy 5 (Agent Design)";
+                btn.textContent = "💎 Batch Deploy 5 (Agent AI Designs - Manual Wallet)";
                 updateDashboard();
             }
         }
 
-        async function sendCommand(type) {
+        async function sendCommand(type, extraParams = {}) {
             const name = document.getElementById('custom-name').value;
             const symbol = document.getElementById('custom-symbol').value;
-            const text = document.getElementById('custom-message').value;
-            const image_url = document.getElementById('image-url').value;
-            const status = document.getElementById('command-status');
+            const msg = document.getElementById('custom-message').value;
+            const img = document.getElementById('image-url').value;
+
+            const cmd = {
+                type: type,
+                params: {
+                    name, symbol, text: msg, image_url: img, ...extraParams
+                },
+                timestamp: new Date().toISOString(),
+                executed: false
+            };
 
             try {
                 const response = await fetch('/api/command', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        type: type,
-                        params: { name, symbol, text, image_url }
-                    })
+                    body: JSON.stringify(cmd)
                 });
 
                 if (response.ok) {

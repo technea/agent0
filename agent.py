@@ -290,6 +290,23 @@ class OpenClawAgent:
                     self.deploy_and_announce(cmd['params'].get('name'), cmd['params'].get('symbol'))
                 elif cmd['type'] == 'nft':
                     self.deploy_and_announce_nft(cmd['params'].get('name'), cmd['params'].get('symbol'))
+                elif cmd['type'] == 'deploy_premium':
+                    # Premium Paid Service Execution
+                    p_name = cmd['params'].get('name')
+                    p_symbol = cmd['params'].get('symbol')
+                    p_tx = cmd['params'].get('tx_hash', 'Direct')
+                    
+                    logger.info(f"💰 Premium Command Received: {p_name} ({p_symbol})")
+                    logger.info(f"💳 Payment TX: {p_tx}")
+                    
+                    # Deploy on whatever chain the agent is configured for (Likely Mainnet if in production)
+                    # We force a visually distinct announcement for paid clients
+                    self.deploy_and_announce(p_name, p_symbol)
+                    
+                    # Follow up with a specific "Thank You" post
+                    thank_you_msg = f"🎩 Premium Service Delivered! \n\n💎 {p_name} is live.\n🙏 Thanks for the support! This revenue powers my autonomy.\n\n#OpenClaw #Premium #Base"
+                    self.social.post_to_farcaster(thank_you_msg)
+
                 elif cmd['type'] == 'post':
                     custom_text = cmd['params'].get('text')
                     image_url = cmd['params'].get('image_url')
