@@ -185,7 +185,7 @@ class OpenClawAgent:
             deployment = self.blockchain.deploy_erc20_token(token_name, token_symbol, initial_supply)
             contract_address = deployment['contract_address']
             tx_hash = deployment['transaction_hash']
-            explorer_url = f"https://sepolia.basescan.org/tx/{tx_hash}"
+            explorer_url = self.blockchain.get_explorer_url(tx_hash)
             
             # Announce
             social_result = self.social.post_token_deployment(
@@ -233,8 +233,9 @@ class OpenClawAgent:
             # Generate a unique AI Artwork for this NFT
             image_prompt = f"Digital NFT masterpiece art titled {name}, cybernetic style, base blue colors, futuristic gallery piece"
             image_url = self.social.generate_ai_image(image_prompt)
+            explorer_url = self.blockchain.get_explorer_url(deployment['transaction_hash'])
             
-            msg = f"🎨 New NFT Collection Deployed on Base! \n\n💎 {name} ({symbol})\n📍 {deployment['contract_address'][:10]}...\n🔗 https://sepolia.basescan.org/tx/{deployment['transaction_hash']}\n\n#Base #NFT #OpenClaw"
+            msg = f"🎨 New NFT Collection Deployed on Base! \n\n💎 {name} ({symbol})\n📍 {deployment['contract_address'][:10]}...\n🔗 {explorer_url}\n\n#Base #NFT #OpenClaw"
             
             self.social.post_to_farcaster(msg, image_url=image_url)
             

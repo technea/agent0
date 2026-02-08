@@ -21,6 +21,15 @@ logger = logging.getLogger(__name__)
 class BlockchainManager:
     """Manages blockchain interactions for token deployment and transactions"""
     
+    ERC721_ABI = [
+        {"inputs": [{"internalType": "string", "name": "name", "type": "string"}, {"internalType": "string", "name": "symbol", "type": "string"}], "stateMutability": "nonpayable", "type": "constructor"},
+        {"anonymous": False, "inputs": [{"indexed": True, "internalType": "address", "name": "from", "type": "address"}, {"indexed": True, "internalType": "address", "name": "to", "type": "address"}, {"indexed": True, "internalType": "uint256", "name": "tokenId", "type": "uint256"}], "name": "Transfer", "type": "event"},
+        {"inputs": [{"internalType": "address", "name": "to", "type": "address"}, {"internalType": "uint256", "name": "tokenId", "type": "uint256"}], "name": "mint", "outputs": [], "stateMutability": "nonpayable", "type": "function"},
+        {"inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}], "name": "ownerOf", "outputs": [{"internalType": "address", "name": "", "type": "address"}], "stateMutability": "view", "type": "function"}
+    ]
+    
+    ERC721_BYTECODE = "0x608060405234801561001057600080fd5b5061012b806100206000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c806340c10f19146100465780636352211e14610064575b600080fd5b610062600480360381019061005d91906100b9565b610082565b005b610070600480360381019061006b91906100ef565b6100a7565b60405161007d9190610115565b60405180910390f35b8060018114610093575b50565b3373ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef81816040516100a39190610115565b60405180910390a350565b6000816001146100b3575b5090565b6000602082840312156100cb576100ca610121565b5b60003573ffffffffffffffffffffffffffffffffffffffff169050919050565b6000604082840312156100e4576100e3610121565b5b6000359050602035905092915050565b6000819050919050565b61010f816100fc565b82525050565b6000602082019050919050565b600080fdfea2646970667358221220abcdef1234567890abcdef1234567890abcdef1234567890abcdef123456789064736f6c63430008120033"
+
     # ERC20 token contract bytecode and ABI
     ERC20_ABI = [
         {

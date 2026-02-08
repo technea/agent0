@@ -1,73 +1,11 @@
 [
   {
-    "type": "deploy",
+    "type": "nft",
     "params": {
-      "name": "resr",
-      "symbol": "set"
+      "name": "Live NFT Demo",
+      "symbol": "LIVE"
     },
-    "timestamp": 1770552434.4895272,
-    "executed": true
-  },
-  {
-    "type": "post",
-    "params": {
-      "name": "",
-      "symbol": ""
-    },
-    "timestamp": 1770552445.1354618,
-    "executed": true
-  },
-  {
-    "type": "deploy",
-    "params": {
-      "name": "Wingtyy",
-      "symbol": "ASTE"
-    },
-    "timestamp": 1770552466.8429558,
-    "executed": true
-  },
-  {
-    "type": "post",
-    "params": {
-      "name": "",
-      "symbol": "",
-      "text": "Hi do baseposting for me",
-      "image_url": ""
-    },
-    "timestamp": 1770553569.162532,
-    "executed": true
-  },
-  {
-    "type": "post",
-    "params": {
-      "name": "",
-      "symbol": "",
-      "text": "",
-      "image_url": ""
-    },
-    "timestamp": 1770554515.1905658,
-    "executed": true
-  },
-  {
-    "type": "post",
-    "params": {
-      "name": "",
-      "symbol": "",
-      "text": "",
-      "image_url": ""
-    },
-    "timestamp": 1770554709.607395,
-    "executed": true
-  },
-  {
-    "type": "post",
-    "params": {
-      "name": "",
-      "symbol": "",
-      "text": "",
-      "image_url": ""
-    },
-    "timestamp": 1770555095.1761622,
+    "timestamp": 1739020950,
     "executed": true
   }
 ]

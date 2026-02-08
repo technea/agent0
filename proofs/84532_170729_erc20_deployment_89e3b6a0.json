@@ -1,0 +1,10 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T13:22:43.571054+00:00",
+  "tx_hash": "simulated_reputation_tx_6508",
+  "proof_data": {
+    "token_symbol": "NRK",
+    "transaction_hash": "0x86859b9c0bc025411e967a48dc44b9c8f2ad13bd3c40931d1103679589e3b6a0"
+  }
+}

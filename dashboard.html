@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenClaw Agent - Live Dashboard</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
     <style>
         :root {
             --bg-color: #0d1117;
@@ -211,9 +212,14 @@
                 <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Autonomous Agent0 / ERC-8004
                     Operator</p>
             </div>
-            <div class="status-badge">
-                <div class="status-dot"></div>
-                Agent Live
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button id="connect-wallet" onclick="connectWallet()"
+                    style="padding: 6px 15px; background: transparent; border: 1px solid var(--accent-color); color: var(--accent-color); border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 13px;">Connect
+                    Wallet</button>
+                <div class="status-badge">
+                    <div class="status-dot"></div>
+                    Agent Live
+                </div>
             </div>
         </header>
 
@@ -227,14 +233,19 @@
                 <div class="stat-label">Reputation Score</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="agent-id">...</div>
-                <div class="stat-label">Agent ID</div>
+                <div class="stat-value" id="user-address"
+                    style="font-size: 14px; overflow: hidden; text-overflow: ellipsis;">No Wallet</div>
+                <div class="stat-label">Your Wallet</div>
             </div>
         </div>
 
         <!-- Command Center -->
         <div class="token-list" style="margin-bottom: 30px; padding: 25px; background: rgba(88, 166, 255, 0.05);">
-            <h3 style="margin-top: 0; color: var(--accent-color);">🎮 Agent Command Center</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="margin: 0; color: var(--accent-color);">🎮 Agent Command Center</h3>
+                <span id="deployment-mode" style="font-size: 12px; color: var(--text-secondary);">Mode: Agent
+                    Autonomous</span>
+            </div>
             <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
                 <div style="flex: 1; min-width: 200px;">
                     <label
@@ -249,7 +260,7 @@
                     <input type="text" id="custom-symbol" placeholder="SAT"
                         style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); color: white; border-radius: 6px;">
                 </div>
-                <button onclick="sendCommand('deploy')"
+                <button id="deploy-btn" onclick="handleDeploy()"
                     style="padding: 10px 20px; background: var(--success-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">🚀
                     Deploy Token</button>
             </div>
@@ -287,6 +298,90 @@
     </div>
 
     <script>
+        let userAddress = null;
+        let provider = null;
+        let signer = null;
+
+        const ERC20_ABI = [
+            "constructor(string name, string symbol, uint256 initialSupply)",
+            "function name() view returns (string)",
+            "function symbol() view returns (string)",
+            "function totalSupply() view returns (uint256)",
+            "function balanceOf(address) view returns (uint256)",
+            "function transfer(address to, uint256 amount) returns (bool)",
+            "event Transfer(address indexed from, address indexed to, uint256 value)"
+        ];
+
+        const ERC20_BYTECODE = "0x60806040523480156200001157600080fd5b5060405162000e9638038062000e968339818101604052810190620000379190620002e4565b82600390816200004891906200058a565b5081600490816200005a91906200058a565b508060058190555080600080620000766200012960201b60201c565b73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508073ffffffffffffffffffffffffffffffffffffffff16600073ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef836040516200011591906200067c565b60405180910390a3505050620006b9565b600033905090565b6000604051905090565b600080fd";
+
+        async function connectWallet() {
+            if (window.ethereum) {
+                try {
+                    provider = new ethers.providers.Web3Provider(window.ethereum);
+                    await provider.send("eth_requestAccounts", []);
+                    signer = provider.getSigner();
+                    userAddress = await signer.getAddress();
+
+                    document.getElementById('user-address').textContent = userAddress.substring(0, 6) + '...' + userAddress.substring(38);
+                    document.getElementById('connect-wallet').textContent = 'Connected';
+                    document.getElementById('deployment-mode').textContent = 'Mode: User Manual (connected)';
+                } catch (error) {
+                    console.error("User denied account access", error);
+                }
+            } else {
+                alert("Please install MetaMask!");
+            }
+        }
+
+        async function handleDeploy() {
+            if (userAddress && signer) {
+                await deployFromUserWallet();
+            } else {
+                await sendCommand('deploy');
+            }
+        }
+
+        async function deployFromUserWallet() {
+            const name = document.getElementById('custom-name').value || "UserToken";
+            const symbol = document.getElementById('custom-symbol').value || "UTK";
+            const status = document.getElementById('command-status');
+            const btn = document.getElementById('deploy-btn');
+
+            if (!name || !symbol) {
+                alert("Please provide name and symbol");
+                return;
+            }
+
+            try {
+                btn.disabled = true;
+                btn.textContent = "⌛ Deploying...";
+
+                const factory = new ethers.ContractFactory(ERC20_ABI, ERC20_BYTECODE, signer);
+                const initialSupply = ethers.utils.parseEther("1000000");
+                const contract = await factory.deploy(name, symbol, initialSupply);
+
+                status.textContent = "⏳ Waiting for Confirmation...";
+                status.style.display = 'block';
+
+                await contract.deployed();
+
+                status.textContent = "✅ " + name + " Deployed at " + contract.address;
+                setTimeout(() => {
+                    status.style.display = 'none';
+                    status.textContent = "✅ Command Sent!";
+                }, 10000);
+
+                document.getElementById('custom-name').value = '';
+                document.getElementById('custom-symbol').value = '';
+            } catch (error) {
+                console.error("Deployment failed", error);
+                alert("Deployment failed: " + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "🚀 Deploy Token";
+            }
+        }
+
         async function sendCommand(type) {
             const name = document.getElementById('custom-name').value;
             const symbol = document.getElementById('custom-symbol').value;
@@ -332,7 +427,6 @@
                 } catch (e) { }
 
                 document.getElementById('total-deployments').textContent = deployments.length;
-                document.getElementById('agent-id').textContent = metadata.agent_id || 'Pending';
                 document.getElementById('reputation-score').textContent = deployments.length;
 
                 const historyEl = document.getElementById('deployment-history');
@@ -344,8 +438,8 @@
                         row.className = 'token-item';
                         row.innerHTML = `
                             <div>
-                                <div class="token-name">${dep.token_name}</div>
-                                <div class="token-symbol">$${dep.token_symbol}</div>
+                                <div class="token-name">${dep.token_name || dep.name}</div>
+                                <div class="token-symbol">$${dep.token_symbol || dep.symbol}</div>
                             </div>
                             <div class="token-timestamp">${date}</div>
                             <div>
@@ -353,7 +447,7 @@
                                 <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Tx: ${dep.transaction_hash.substring(0, 10)}...</div>
                             </div>
                             <div>
-                                <a href="${dep.explorer_url}" target="_blank" class="token-link">View Explorer ↗</a>
+                                <a href="${dep.explorer_url || ('https://basescan.org/tx/' + dep.transaction_hash)}" target="_blank" class="token-link">View Explorer ↗</a>
                             </div>
                         `;
                         historyEl.appendChild(row);
