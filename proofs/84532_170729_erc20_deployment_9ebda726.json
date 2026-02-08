@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T09:36:12.051113+00:00",
+  "tx_hash": "simulated_reputation_tx_3302",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "6271a3da4dc7a72e6719c7715c5b74f252f8feed1ce24c64401fc7829ebda726",
+    "token_name": "HyperChain",
+    "token_symbol": "HCHA",
+    "initial_supply": 500000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

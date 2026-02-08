@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:01:30.134604+00:00",
+  "tx_hash": "simulated_reputation_tx_4445",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "2dd485c81f2b07999f68c7f1a7eaa1a5b4921c5bf2ad4a2d9c30c3921a670611",
+    "token_name": "UltraCoin",
+    "token_symbol": "UCOI",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

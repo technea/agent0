@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:14:02.523576+00:00",
+  "tx_hash": "simulated_reputation_tx_2410",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "8eae96b575e41274dee37af9da70bfb2f59c7abfcbecef68a923cc52c5da36ee",
+    "token_name": "MegaProtocol",
+    "token_symbol": "MPRO",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

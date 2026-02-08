@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:36:08.205129+00:00",
+  "tx_hash": "simulated_reputation_tx_3633",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "b85f3f61fdb6a21ab03139e916c15abe57948f40e2ab71d53130a3350fa345b9",
+    "token_name": "HyperToken",
+    "token_symbol": "HTOK",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

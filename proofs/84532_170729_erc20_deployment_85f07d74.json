@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:29:46.150907+00:00",
+  "tx_hash": "simulated_reputation_tx_4252",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "6a65d19d3449cb43750572403de4cc44f107efba530c8a98654f08f085f07d74",
+    "token_name": "CyberCash",
+    "token_symbol": "CCAS",
+    "initial_supply": 10000000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

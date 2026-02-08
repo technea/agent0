@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:03:42.093756+00:00",
+  "tx_hash": "simulated_reputation_tx_8824",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "075d21b21d3504b34983e9b8df8ceac07a0996096f56619258cf85b7e3bcb9e0",
+    "token_name": "MeshSwap",
+    "token_symbol": "MSWA",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

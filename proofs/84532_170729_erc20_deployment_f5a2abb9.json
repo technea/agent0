@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:38:14.793479+00:00",
+  "tx_hash": "simulated_reputation_tx_4972",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "a8fb5327c4412b70fcd655c8f86fd0f1900bc33995eb08319a34b249f5a2abb9",
+    "token_name": "UltraToken",
+    "token_symbol": "UTOK",
+    "initial_supply": 500000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

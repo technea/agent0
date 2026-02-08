@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:44:33.463532+00:00",
+  "tx_hash": "simulated_reputation_tx_3845",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "57c63e6481b0e42af03ec2eebc657bddf6744f3bec5d89e0a05f0060f6ce8687",
+    "token_name": "ChainFinance",
+    "token_symbol": "CFIN",
+    "initial_supply": 500000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

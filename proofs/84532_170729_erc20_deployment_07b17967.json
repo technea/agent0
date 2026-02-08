@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:52:16.028446+00:00",
+  "tx_hash": "simulated_reputation_tx_2378",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "370da128f200f7618fa863e33a505687ec2f597d1fb2e393a76d9fb907b17967",
+    "token_name": "MeshToken",
+    "token_symbol": "MTOK",
+    "initial_supply": 100000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

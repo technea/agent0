@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:40:32.830122+00:00",
+  "tx_hash": "simulated_reputation_tx_5564",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "24669d9d27326bc70285630ba7332b4fd003be569e84da463d1b92d3c5e9464a",
+    "token_name": "HyperDAO",
+    "token_symbol": "HDAO",
+    "initial_supply": 5000000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

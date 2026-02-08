@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:22:50.066403+00:00",
+  "tx_hash": "simulated_reputation_tx_5985",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "4373bd037011d1559fe9c872f6eacb2aba9efa71429d50528de8906827628e9f",
+    "token_name": "NovaProtocol",
+    "token_symbol": "NPRO",
+    "initial_supply": 100000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

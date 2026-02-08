@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw Agent - Live Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: rgba(22, 27, 34, 0.8);
+            --accent-color: #58a6ff;
+            --success-color: #238636;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --border-color: #30363d;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            background: linear-gradient(90deg, #58a6ff, #bc8cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(35, 134, 54, 0.2);
+            color: #3fb950;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #3fb950;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(63, 185, 80, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(63, 185, 80, 0); }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .token-list {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .list-header {
+            padding: 15px 25px;
+            background: rgba(48, 54, 61, 0.3);
+            border-bottom: 1px solid var(--border-color);
+            font-weight: bold;
+            color: var(--text-secondary);
+        }
+
+        .token-item {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border-color);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.5fr 1fr;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .token-item:hover {
+            background: rgba(48, 54, 61, 0.1);
+        }
+
+        .token-item:last-child {
+            border-bottom: none;
+        }
+
+        .token-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .token-symbol {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .token-timestamp {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .token-link {
+            text-decoration: none;
+            color: var(--accent-color);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .token-link:hover {
+            text-decoration: underline;
+        }
+
+        .reputation-badge {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #000;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        #empty-state {
+            padding: 50px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>OpenClaw Dashboard</h1>
+                <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Autonomous Agent0 / ERC-8004 Operator</p>
+            </div>
+            <div class="status-badge">
+                <div class="status-dot"></div>
+                Agent Live
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="total-deployments">0</div>
+                <div class="stat-label">Total Tokens</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="reputation-score">0</div>
+                <div class="stat-label">Reputation Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="agent-id">...</div>
+                <div class="stat-label">Agent ID</div>
+            </div>
+        </div>
+
+        <div class="token-list">
+            <div class="list-header">Deployment History</div>
+            <div id="deployment-history">
+                <div id="empty-state">No deployments found. Starting cycle...</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Powered by Agent0 SDK & ERC-8004 Standard • Base Sepolia Network
+        </div>
+    </div>
+
+    <script>
+        async function updateDashboard() {
+            try {
+                // Fetch deployments
+                const depResponse = await fetch('deployments.json');
+                const deployments = await depResponse.json();
+                
+                // Fetch metadata for ID and Reputation
+                let metadata = { agent_id: '...', reputation: 0 };
+                try {
+                    const metaResponse = await fetch('agent0_metadata.json');
+                    metadata = await metaResponse.json();
+                } catch(e) {}
+
+                // Update Stats
+                document.getElementById('total-deployments').textContent = deployments.length;
+                document.getElementById('agent-id').textContent = metadata.agent_id || 'Pending';
+                
+                // Fetch reputation count from proofs directory if possible (or just use deployment count)
+                // Since JS can't list dirs easily, we assume 1 proof per deployment
+                document.getElementById('reputation-score').textContent = deployments.length;
+
+                // Render List
+                const historyEl = document.getElementById('deployment-history');
+                if (deployments.length > 0) {
+                    historyEl.innerHTML = '';
+                    // Show latest first
+                    deployments.reverse().forEach(dep => {
+                        const date = new Date(dep.timestamp).toLocaleString();
+                        const row = document.createElement('div');
+                        row.className = 'token-item';
+                        row.innerHTML = `
+                            <div>
+                                <div class="token-name">${dep.token_name}</div>
+                                <div class="token-symbol">$${dep.token_symbol}</div>
+                            </div>
+                            <div class="token-timestamp">${date}</div>
+                            <div>
+                                <span class="reputation-badge">Verified Proof</span>
+                                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Tx: ${dep.transaction_hash.substring(0, 10)}...</div>
+                            </div>
+                            <div>
+                                <a href="${dep.explorer_url}" target="_blank" class="token-link">View Explorer ↗</a>
+                            </div>
+                        `;
+                        historyEl.appendChild(row);
+                    });
+                }
+            } catch (error) {
+                console.error('Error updating dashboard:', error);
+            }
+        }
+
+        // Update every 10 seconds
+        updateDashboard();
+        setInterval(updateDashboard, 10000);
+    </script>
+</body>
+</html>

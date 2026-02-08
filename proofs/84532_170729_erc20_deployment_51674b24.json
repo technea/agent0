@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:06:28.362517+00:00",
+  "tx_hash": "simulated_reputation_tx_1644",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "8183f568136dca04d24a523f1db59b8f04af03bac29447d02867d1d551674b24",
+    "token_name": "AutoNetwork",
+    "token_symbol": "ANET",
+    "initial_supply": 100000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

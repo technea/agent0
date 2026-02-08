@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:20:31.414420+00:00",
+  "tx_hash": "simulated_reputation_tx_3924",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "1b18ff46604867aab49e7de8bfca5726e00256276f063f9ba6f1c35d42f15314",
+    "token_name": "ClawVault",
+    "token_symbol": "CVAU",
+    "initial_supply": 5000000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

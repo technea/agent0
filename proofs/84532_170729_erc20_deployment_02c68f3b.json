@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:27:18.011450+00:00",
+  "tx_hash": "simulated_reputation_tx_8953",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "007650f14f87d43a71ea76368cb672308b300880281c8d9a4edc122f02c68f3b",
+    "token_name": "HyperProtocol",
+    "token_symbol": "HPRO",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

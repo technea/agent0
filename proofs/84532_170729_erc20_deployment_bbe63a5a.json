@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:59:10.797104+00:00",
+  "tx_hash": "simulated_reputation_tx_6493",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "bd9c2f9e72ea7caf9fe056ada3f96ca8eabaf0a8b82a73cc0bb22e86bbe63a5a",
+    "token_name": "NexusPay",
+    "token_symbol": "NPAY",
+    "initial_supply": 500000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

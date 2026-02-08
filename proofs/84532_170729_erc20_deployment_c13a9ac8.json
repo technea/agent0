@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:56:57.969268+00:00",
+  "tx_hash": "simulated_reputation_tx_9486",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "1259cf7869b2de4b22851792099372bafbb239875c27990e74eef954c13a9ac8",
+    "token_name": "CyberToken",
+    "token_symbol": "CTOK",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

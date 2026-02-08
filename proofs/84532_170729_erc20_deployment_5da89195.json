@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T09:34:29.166832+00:00",
+  "tx_hash": "simulated_reputation_tx_6793",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "52f08133c029d7c390fc30a74d83391699a40c587bede61bea81b3065da89195",
+    "token_name": "MeshCash",
+    "token_symbol": "MCAS",
+    "initial_supply": 100000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

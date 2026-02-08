@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:34:01.854526+00:00",
+  "tx_hash": "simulated_reputation_tx_7992",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "b1350a2fb32da375e21cdaff8c70714e9121397c8535ad6de236ca44927bb671",
+    "token_name": "AutoDAO",
+    "token_symbol": "ADAO",
+    "initial_supply": 500000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:18:22.983509+00:00",
+  "tx_hash": "simulated_reputation_tx_1204",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "0f5f6ff6d779eed1f5b1de0853373fcb7ea4b56de844f53329e260afbd7295bc",
+    "token_name": "MetaDAO",
+    "token_symbol": "MDAO",
+    "initial_supply": 5000000,
+    "gas_used": 2000000,
+    "social_posted": true
+  }
+}

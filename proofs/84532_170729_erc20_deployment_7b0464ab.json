@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:54:37.410453+00:00",
+  "tx_hash": "simulated_reputation_tx_8152",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "e463b7f86b9a00d98cd51621a7b8ff177681fd187a7fda57948fd9a37b0464ab",
+    "token_name": "MeshFinance",
+    "token_symbol": "MFIN",
+    "initial_supply": 500000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

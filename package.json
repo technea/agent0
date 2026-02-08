@@ -1,0 +1,24 @@
+{
+  "name": "openclaw-agent",
+  "version": "1.0.0",
+  "description": "Autonomous agent using Agent0 SDK for ERC-8004 compliance on Base blockchain",
+  "type": "module",
+  "scripts": {
+    "agent": "python agent.py",
+    "agent:once": "python agent.py --once",
+    "test": "python example.py"
+  },
+  "keywords": [
+    "agent0",
+    "erc-8004",
+    "base",
+    "blockchain",
+    "ai-agent",
+    "autonomous"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@agent0/sdk": "latest"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T11:08:46.413614+00:00",
+  "tx_hash": "simulated_reputation_tx_8251",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "cc1bf6ccab382a493674afcaf4ef9e54c7b4789ada1857ca410d0f6955dceaa1",
+    "token_name": "MetaCash",
+    "token_symbol": "MCAS",
+    "initial_supply": 100000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

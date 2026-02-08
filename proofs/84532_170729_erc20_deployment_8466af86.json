@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:31:55.371476+00:00",
+  "tx_hash": "simulated_reputation_tx_5376",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "dcd5fe0ebd36791ae72bd8febf97b21acb95896854d0db60b6f823758466af86",
+    "token_name": "MegaCoin",
+    "token_symbol": "MCOI",
+    "initial_supply": 100000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}

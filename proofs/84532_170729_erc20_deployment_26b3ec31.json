@@ -1,0 +1,15 @@
+{
+  "agent_id": "84532:170729",
+  "task_type": "erc20_deployment",
+  "timestamp": "2026-02-08T10:46:47.023286+00:00",
+  "tx_hash": "simulated_reputation_tx_8741",
+  "proof_data": {
+    "contract_address": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "transaction_hash": "65a3835a6045d1449e22e71a2caeaeccd4dc17b117b74fc86f21d0f326b3ec31",
+    "token_name": "NovaSwap",
+    "token_symbol": "NSWA",
+    "initial_supply": 1000000,
+    "gas_used": 2000000,
+    "social_posted": false
+  }
+}
