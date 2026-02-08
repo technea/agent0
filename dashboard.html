@@ -523,18 +523,29 @@
             }
 
             try {
-                // Network Check
+                // Network Check - Enforce Sepolia for Free Test
                 const { chainId } = await provider.getNetwork();
                 console.log("Current Chain ID:", chainId);
 
-                if (chainId !== 8453 && chainId !== 84532) {
-                    alert("Please switch your wallet to Base Mainnet (8453) or Base Sepolia (84532)!");
+                if (chainId !== 84532) {
+                    alert("⚠️ Network Mismatch!\n\nFor the 'Free Sepolia Test', you must be on Base Sepolia (Chain ID: 84532).\n\nPlease switch your wallet network.");
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_switchEthereumChain',
+                            params: [{ chainId: '0x14a34' }], // 84532 in hex
+                        });
+                    } catch (switchError) {
+                        // This error code monitoring is important for user experience
+                        if (switchError.code === 4902) {
+                            alert("Base Sepolia network is not added to your wallet. Please add it manually.");
+                        }
+                    }
                     return;
                 }
 
                 btn.disabled = true;
-                btn.textContent = "⌛ Deploying...";
-                status.textContent = "⏳ Signing Transaction...";
+                btn.textContent = "⌛ Depolying to Sepolia...";
+                status.textContent = "⏳ Signing Transaction (Free Test)...";
                 status.style.display = 'block';
 
                 const factory = new ethers.ContractFactory(ERC20_ABI, ERC20_BYTECODE, signer);
@@ -543,7 +554,7 @@
                 const initialSupply = ethers.utils.parseUnits("1000000", 18);
 
                 const contract = await factory.deploy(name, symbol, initialSupply, {
-                    gasLimit: 1500000 // Ensure enough gas for deployment
+                    gasLimit: 3000000 // Higher gas limit for safety on testnet
                 });
 
                 status.textContent = "⏳ Waiting for Confirmation (Tx: " + contract.deployTransaction.hash.substring(0, 10) + "...)";
@@ -584,27 +595,6 @@
             try {
                 // Network check: Must be on Base Mainnet to pay
                 const { chainId } = await provider.getNetwork();
-                if (chainId !== 8453) {
-                    alert("Switch to Base Mainnet (8453) to use the $1 Premium Service.");
-                    return;
-                }
-
-                btn.disabled = true;
-                btn.textContent = "⏳ Processing $1 Payment...";
-                status.style.display = 'block';
-                status.textContent = "💳 Please confirm the $1 (approx 0.0004 ETH) payment in your wallet...";
-
-                // Send $1 (approx 0.0004 ETH) to dev address
-                const devAddress = "0x56c06036521f05Da74519A7c41223A5fF239C6BF";
-                const tx = await signer.sendTransaction({
-                    to: devAddress,
-                    value: ethers.utils.parseEther("0.0004")
-                });
-
-                status.textContent = "⏳ Waiting for Payment Confirmation...";
-                await tx.wait();
-
-                status.textContent = "✅ Payment Received! Signal sent to Agent for Autonomous Deployment...";
 
                 // Signal Agent to deploy on Mainnet using Agent Funds
                 await sendCommand('deploy_premium', { name, symbol, tx_hash: tx.hash });
